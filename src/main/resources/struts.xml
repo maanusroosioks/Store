@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+    <constant name="struts.devMode" value="true"/>
+    <package name="myPackage" extends="struts-default">
+
+        <default-action-ref name="index"/>
+
+        <action name="index" class="Store.IndexAction">
+            <result>/WEB-INF/jsp/index.jsp</result>
+        </action>
+
+        <action name="helloWorld" class="Store.HelloWorldAction">
+            <result>/WEB-INF/jsp/helloWorld.jsp</result>
+        </action>
+
+        <action name="valuespage" class="Store.ProductAction" method="fetchProductEditingValues">
+            <result>/WEB-INF/jsp/changeProductValues.jsp</result>
+        </action>
+
+        <action name="changevalues" class="Store.ProductAction" method="updateProductValues">
+            <result>/WEB-INF/jsp/productTable.jsp</result>
+        </action>
+
+        <action name="fetchproducttable" class="Store.ProductAction" method="productTable">
+            <result>/WEB-INF/jsp/productTable.jsp</result>
+        </action>
+
+        <action name="newproductentry" class="Store.ProductAction" method="newProductPage">
+            <result>/WEB-INF/jsp/insertNewProduct.jsp</result>
+        </action>
+
+        <action name="insertnewproduct" class="Store.ProductAction" method="insertNewProduct">
+            <result>/WEB-INF/jsp/productTable.jsp</result>
+        </action>
+
+        <action name="deleteproductentry" class="Store.ProductAction" method="deleteProduct">
+            <result>/WEB-INF/jsp/productTable.jsp</result>
+        </action>
+    </package>
+
+</struts>
