@@ -191,7 +191,83 @@ public class DatabaseConnection {
         }
     }
 
+    public void addToShoppingTable(Product productData) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(url, username, password);
+            pstmt = conn.prepareStatement("INSERT INTO shoppingcart (clientName,productName, productID, productAmount) VALUES (?,?,?,?)");
+            pstmt.setString(1, "Maanus Roosioks");
+            pstmt.setString(2, productData.productName);
+            pstmt.setInt(3,productData.productID);
+            pstmt.setInt(4, 1);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
+    }
+
+    public List<ShoppingCartItem> fetchShoppingCartData() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        List<ShoppingCartItem> shoppingCartDataList;
+        ResultSet rs = null;
+        ShoppingCartItem cartItem;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(url, username, password);
+
+            pstmt = conn.prepareStatement("SELECT productID,  productName ,  productAmount FROM shoppingcart WHERE clientName=?");
+            pstmt.setString(1, "Maanus Roosioks");
+            rs = pstmt.executeQuery();
+            shoppingCartDataList = new ArrayList<ShoppingCartItem>();
+            if (rs != null) {
+                while (rs.next()) {
+                    cartItem = new ShoppingCartItem();
+                    cartItem.setClientName("Maanus Roosioks");
+                    cartItem.setProductID(rs.getInt("productID"));
+                    cartItem.setProductName(rs.getString("productName"));
+                    cartItem.setProductAmount(rs.getInt("productAmount"));
+//                    productData.setProductPrice(rs.getFloat("productPrice"));
+                    shoppingCartDataList.add(cartItem);
+                }
+                return shoppingCartDataList;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return shoppingCartDataList;
+    }
     //
 //
 //

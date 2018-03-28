@@ -5,13 +5,24 @@ import java.util.List;
 
 public class ProductAction extends ActionSupport {
     List<Product> productsTableDataList = null;
+    List<ShoppingCartItem> shoppingCartDataList = null;
     DatabaseConnection productObject = null;
     Product productData = null;
+    ShoppingCartItem cartItem= null;
     int productID, productAmount;
     String productName;
     float productPrice;
 
     public String productTable() {
+        try {
+            productsTableDataList = new DatabaseConnection().fetchProductTableData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    public String productShoppingTable() {
         try {
             productsTableDataList = new DatabaseConnection().fetchProductTableData();
         } catch (Exception e) {
@@ -76,6 +87,46 @@ public class ProductAction extends ActionSupport {
             e.printStackTrace();
         }
         return SUCCESS;
+    }
+
+    public String addToShoppingCart(){
+        try {
+            productData = new Product();
+            productData.setProductID(productID);
+//            productData.setProductName(productName);
+//            productData.setProductAmount(productAmount);
+//            productData.setProductPrice(productPrice);
+            new DatabaseConnection().addToShoppingTable(productData);
+            productsTableDataList = new DatabaseConnection().fetchProductTableData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    public String shoppingCartTable() {
+        try {
+            shoppingCartDataList = new DatabaseConnection().fetchShoppingCartData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    public void setShoppingCartDataList(List<ShoppingCartItem> shoppingCartDataList) {
+        this.shoppingCartDataList = shoppingCartDataList;
+    }
+
+    public List<ShoppingCartItem> getShoppingCartDataList() {
+        return shoppingCartDataList;
+    }
+
+    public void setCartItem(ShoppingCartItem cartItem) {
+        this.cartItem = cartItem;
+    }
+
+    public ShoppingCartItem getCartItem() {
+        return cartItem;
     }
 
     public void setProductsTableDataList(List<Product> productsTableDataList) {

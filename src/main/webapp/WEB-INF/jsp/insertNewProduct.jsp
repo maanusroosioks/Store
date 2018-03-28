@@ -13,6 +13,13 @@
 </head>
 <body>
 <div id="content" class="container">
+    <div id="header" class="page-header">
+        <h5>Links</h5>
+        <a href="<s:url action="index"/>">Main page</a>
+        <a href="<s:url action="fetchProductTable"/>">Products table</a>
+        <a href="<s:url action="productShoppingTable"/>">Shopping table</a>
+        <a href="<s:url action="shoppingCartTable"/>">Shopping cart</a>
+    </div>
     <h3>Enter New Values</h3>
     <s:form action="insertnewproduct" theme="simple">
         <div class="row">

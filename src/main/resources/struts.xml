@@ -27,8 +27,20 @@
             <result>/WEB-INF/jsp/productTable.jsp</result>
         </action>
 
-        <action name="fetchproducttable" class="Store.ProductAction" method="productTable">
+        <action name="fetchProductTable" class="Store.ProductAction" method="productTable">
             <result>/WEB-INF/jsp/productTable.jsp</result>
+        </action>
+
+        <action name="productShoppingTable" class="Store.ProductAction" method="productShoppingTable">
+            <result>/WEB-INF/jsp/productShoppingTable.jsp</result>
+        </action>
+
+        <action name="shoppingCartTable" class="Store.ProductAction" method="shoppingCartTable">
+            <result>/WEB-INF/jsp/shoppingCart.jsp</result>
+        </action>
+
+        <action name="addToShoppingCart" class="Store.ProductAction" method="addToShoppingCart">
+            <result>/WEB-INF/jsp/productShoppingTable.jsp</result>
         </action>
 
         <action name="newproductentry" class="Store.ProductAction" method="newProductPage">

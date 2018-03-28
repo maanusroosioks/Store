@@ -7,11 +7,11 @@
 <html>
 <head>
     <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <title>Products table</title>
+    <title>Shopping cart</title>
 </head>
 <body>
 <div id="content" class="container">
-    <div id="header" class="panel-heading">
+    <div id="header" class="page-header">
         <h5>Links</h5>
         <a href="<s:url action="index"/>">Main page</a>
         <a href="<s:url action="fetchProductTable"/>">Products table</a>
@@ -23,33 +23,32 @@
             <thead>
             <tr>
                 <div class="row">
-                <th>productID</th>
-                <th>productName</th>
-                <th>productAmount</th>
-                <th>productPrice</th>
+                    <th>Client name</th>
+                    <th>Product ID</th>
+                    <th>Product name</th>
+                    <th>Product amount</th>
                 </div>
             </tr>
             </thead>
             <tbody>
-            <s:iterator value="productsTableDataList">
+            <s:iterator value="shoppingCartDataList">
                 <tr>
-                    <s:url var="findUserUrl" action="valuespage">
+                    <s:url var="findUserUrl" action="productOverview">
                         <s:param value="productID" name="productID"/>
                     </s:url>
+                    <td><s:property value="clientName"/></td>
                     <td><s:a href="%{findUserUrl}"><s:property value="productID"/></s:a></td>
                     <td><s:property value="productName"/></td>
+                    <%--<td><s:property value="productPrice"/></td>--%>
                     <td><s:property value="productAmount"/></td>
-                    <td><s:property value="productPrice"/></td>
-                    <td><s:property value="productPrice"/></td>
+                    <td><s:url var="removeFromShoppingCart" action="removeFromShoppingCart">
+                        <s:param value="productID" name="productID"/>
+                    </s:url>
+                        <s:a class="btn btn-danger" href="%{removeFromShoppingCart}">Remove from Shopping cart</s:a></td>
                 </tr>
             </s:iterator>
             </tbody>
         </table>
-    </div>
-    <div>
-        <s:form action="newproductentry" theme="simple">
-            <s:submit class="btn btn-info" value="New product"/>
-        </s:form>
     </div>
 </div>
 </body>
