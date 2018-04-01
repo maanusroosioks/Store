@@ -10,14 +10,8 @@
     <title>Products table</title>
 </head>
 <body>
+<s:include value="header.jsp"/>
 <div id="content" class="container">
-    <div id="header" class="panel-heading">
-        <h5>Links</h5>
-        <a href="<s:url action="index"/>">Main page</a>
-        <a href="<s:url action="fetchProductTable"/>">Products table</a>
-        <a href="<s:url action="productShoppingTable"/>">Shopping table</a>
-        <a href="<s:url action="shoppingCartTable"/>">Shopping cart</a>
-    </div>
     <div class="table-responsive" >
         <table class="table">
             <thead>
@@ -39,7 +33,6 @@
                     <td><s:a href="%{findUserUrl}"><s:property value="productID"/></s:a></td>
                     <td><s:property value="productName"/></td>
                     <td><s:property value="productAmount"/></td>
-                    <td><s:property value="productPrice"/></td>
                     <td><s:property value="productPrice"/></td>
                 </tr>
             </s:iterator>

@@ -43,6 +43,10 @@
             <result>/WEB-INF/jsp/productShoppingTable.jsp</result>
         </action>
 
+        <action name="deleteFromShoppingCart" class="Store.ProductAction" method="deleteFromShoppingCart">
+            <result>/WEB-INF/jsp/shoppingCart.jsp</result>
+        </action>
+
         <action name="newproductentry" class="Store.ProductAction" method="newProductPage">
             <result>/WEB-INF/jsp/insertNewProduct.jsp</result>
         </action>
@@ -53,6 +57,32 @@
 
         <action name="deleteproductentry" class="Store.ProductAction" method="deleteProduct">
             <result>/WEB-INF/jsp/productTable.jsp</result>
+        </action>
+
+        <action name="clientRegistrationPage" class="Store.ClientAction" method="clientRegistrationPage">
+            <result>/WEB-INF/jsp/registerNewClient.jsp</result>
+        </action>
+
+        <action name="registerNewClient" class="Store.ClientAction" method="registerNewClient">
+            <result>/WEB-INF/jsp/productTable.jsp</result>
+        </action>
+
+        <action name="loginPage" class="Store.ClientAction" method="clientLoginPage">
+            <result >/WEB-INF/jsp/loginPage.jsp</result>
+        </action>
+
+        <action name="clientLogIn" class="Store.ClientAction" method="clientLogIn">
+            <result name="success"  >/WEB-INF/jsp/loginSuccessful.jsp</result>
+            <result name="error" >/WEB-INF/jsp/loginError.jsp</result>
+        </action>
+
+        <action name="logout" class="Store.ClientAction" method="logout">
+            <result name="success" >/WEB-INF/jsp/logoutSuccess.jsp</result>
+        </action>
+
+        <action name="profile" class="Store.Profile">
+            <result name="success" >/WEB-INF/jsp/profileSuccess.jsp</result>
+            <result name="error" >/WEB-INF/jsp/profileError.jsp</result>
         </action>
     </package>
 
