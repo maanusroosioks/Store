@@ -4,14 +4,14 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.util.List;
 
 public class ProductAction extends ActionSupport {
-    List<Product> productsTableDataList = null;
-    List<ShoppingCartItem> shoppingCartDataList = null;
-    DatabaseConnection productObject = null;
-    Product productData = null;
-    ShoppingCartItem cartItem= null;
-    int productID, productAmount;
-    String productName;
-    float productPrice;
+    private List<Product> productsTableDataList = null;
+    private List<ShoppingCartItem> shoppingCartDataList = null;
+    private DatabaseConnection productObject = null;
+    private Product productData = null;
+    private ShoppingCartItem cartItem= null;
+    private int productID, productAmount;
+    private String productName;
+    private float productPrice;
 
     public String productTable() {
         try {

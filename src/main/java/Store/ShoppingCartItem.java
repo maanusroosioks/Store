@@ -2,10 +2,10 @@ package Store;
 
 public class ShoppingCartItem {
 
-        int productID, productAmount;
-        String productName;
-        float productPrice;
-        String clientName;
+        private int productID, productAmount;
+        private String productName, clientName;
+        private float productPrice;
+
 
     public String getClientName() {
         return clientName;
