@@ -4,14 +4,14 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.util.List;
 
 public class ProductAction extends ActionSupport {
-    private List<Product> productsTableDataList = null;
-    private List<ShoppingCartItem> shoppingCartDataList = null;
-    private DatabaseConnection productObject = null;
-    private Product productData = null;
-    private ShoppingCartItem cartItem= null;
-    private int productID, productAmount;
-    private String productName;
-    private float productPrice;
+    List<Product> productsTableDataList = null;
+    List<ShoppingCartItem> shoppingCartDataList = null;
+    DatabaseConnection productObject = null;
+    Product productData = null;
+    ShoppingCartItem cartItem= null;
+    int productID, productAmount, shoppingCartID;
+    String productName;
+    float productPrice;
 
     public String productTable() {
         try {
@@ -47,7 +47,7 @@ public class ProductAction extends ActionSupport {
             productData.setProductName(productName);
             productData.setProductAmount(productAmount);
             productData.setProductPrice(productPrice);
-            new DatabaseConnection().updateEntry(productData);
+            new DatabaseConnection().updateProductEntry(productData);
             productsTableDataList = new DatabaseConnection().fetchProductTableData();
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,7 +66,7 @@ public class ProductAction extends ActionSupport {
             productData.setProductName(productName);
             productData.setProductAmount(productAmount);
             productData.setProductPrice(productPrice);
-            new DatabaseConnection().insertEntry(productData);
+            new DatabaseConnection().insertProductEntry(productData);
             productsTableDataList = new DatabaseConnection().fetchProductTableData();
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,9 +93,8 @@ public class ProductAction extends ActionSupport {
         try {
             productData = new Product();
             productData.setProductID(productID);
-//            productData.setProductName(productName);
-//            productData.setProductAmount(productAmount);
-//            productData.setProductPrice(productPrice);
+            productData.setProductName(productName);
+            productData.setProductPrice(productPrice);
             new DatabaseConnection().addToShoppingTable(productData);
             productsTableDataList = new DatabaseConnection().fetchProductTableData();
         } catch (Exception e) {
@@ -111,6 +110,29 @@ public class ProductAction extends ActionSupport {
             e.printStackTrace();
         }
         return SUCCESS;
+    }
+    public String deleteFromShoppingCart(){
+        try {
+            cartItem = new ShoppingCartItem();
+            cartItem.setProductID(productID);
+            cartItem.setProductName(productName);
+            cartItem.setProductAmount(productAmount);
+            cartItem.setProductPrice(productPrice);
+            cartItem.setShoppingCartID(shoppingCartID);
+            new DatabaseConnection().deleteFromShoppingCart(cartItem);
+            shoppingCartDataList = new DatabaseConnection().fetchShoppingCartData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    public void setShoppingCartID(int shoppingCartID) {
+        this.shoppingCartID = shoppingCartID;
+    }
+
+    public int getShoppingCartID() {
+        return shoppingCartID;
     }
 
     public void setShoppingCartDataList(List<ShoppingCartItem> shoppingCartDataList) {

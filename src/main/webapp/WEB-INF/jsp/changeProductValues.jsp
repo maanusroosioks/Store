@@ -15,56 +15,70 @@
 <head>
     <title>Enter new values</title>
     <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        .button {
+            margin-right: 20px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
+<s:include value="header.jsp"/>
 <div id="content" class="container">
-    <div id="header" class="page-header">
-        <h5>Links</h5>
-        <a href="<s:url action="index"/>">Main page</a>
-        <a href="<s:url action="fetchProductTable"/>">Products table</a>
-        <a href="<s:url action="productShoppingTable"/>">Shopping table</a>
-        <a href="<s:url action="shoppingCartTable"/>">Shopping cart</a>
-    </div>
     <h3>Enter New Values</h3>
     <s:form action="changevalues" theme="simple">
         <s:hidden type="number" name="productID" value="%{productData.productID}"/>
 
         <div class="row">
-            <div class="form-group">
+            <div class="col-md-2">
                 <s:label>PRODUCT ID: <s:property value="productID"/> </s:label>
             </div>
         </div>
         <div class="row">
-            <div class="form-group">
+            <div class="col-md-2">
+                <label>PRODUCT NAME: </label>
+
+            </div>
+            <div class="col-md-3">
                 <s:textfield label="PRODUCT NAME" name="productName" class="form-control"
                              value="%{productData.productName}"/>
             </div>
         </div>
         <div class="row">
-            <div class="form-group">
+            <div class="col-md-2">
+                <label>PRODUCT AMOUNT: </label>
+
+            </div>
+            <div class="col-md-3">
                 <s:textfield type="number" label="PRODUCT AMOUNT" name="productAmount" class="form-control"
                              value="%{productData.productAmount}"/>
             </div>
         </div>
         <div class="row">
-            <div class="form-group">
-                <s:textfield type="number" label="PRODUCT PRICE" class="form-control" name="productPrice"
+            <div class="col-md-2">
+                <label>PRODUCT PRICE: </label>
+
+            </div>
+            <div class="col-md-3">
+                <s:textfield type="number" class="form-control" name="productPrice"
                              value="%{productData.productPrice}"/>
             </div>
         </div>
         <div class="row">
-            <s:submit class="btn btn-info" value="Change values"/>
+            <div class="col-md-5">
+                <s:submit class="btn btn-info button" value="Change values"/>
 
-            <s:url var="deleteProductUrl" action="deleteproductentry">
-                <s:param value="productID" name="productID"/>
-            </s:url>
-            <s:a class="btn btn-danger" href="%{deleteProductUrl}">Delete entry</s:a>
+                <s:url var="deleteProductUrl" action="deleteproductentry">
+                    <s:param value="productID" name="productID"/>
+                </s:url>
+                <s:a class="btn btn-danger button" href="%{deleteProductUrl}">Delete entry</s:a>
 
-            <s:url var="productTableUrl" action="fetchProductTable">
-            </s:url>
-            <s:a class="btn btn-info" href="%{productTableUrl}">Back</s:a>
-                </s:form>
+                <s:url var="productTableUrl" action="fetchProductTable"/>
+                <s:a class="btn btn-info button" href="%{productTableUrl}">Back</s:a>
+            </div>
         </div>
+    </s:form>
+</div>
 </div>
 </body>
 </html>

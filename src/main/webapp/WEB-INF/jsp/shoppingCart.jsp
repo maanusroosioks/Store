@@ -10,14 +10,8 @@
     <title>Shopping cart</title>
 </head>
 <body>
+<s:include value="header.jsp"/>
 <div id="content" class="container">
-    <div id="header" class="page-header">
-        <h5>Links</h5>
-        <a href="<s:url action="index"/>">Main page</a>
-        <a href="<s:url action="fetchProductTable"/>">Products table</a>
-        <a href="<s:url action="productShoppingTable"/>">Shopping table</a>
-        <a href="<s:url action="shoppingCartTable"/>">Shopping cart</a>
-    </div>
     <div class="table-responsive" >
         <table class="table">
             <thead>
@@ -41,8 +35,8 @@
                     <td><s:property value="productName"/></td>
                     <%--<td><s:property value="productPrice"/></td>--%>
                     <td><s:property value="productAmount"/></td>
-                    <td><s:url var="removeFromShoppingCart" action="removeFromShoppingCart">
-                        <s:param value="productID" name="productID"/>
+                    <td><s:url var="removeFromShoppingCart" action="deleteFromShoppingCart">
+                        <s:param value="shoppingCartID" name="shoppingCartID"/>
                     </s:url>
                         <s:a class="btn btn-danger" href="%{removeFromShoppingCart}">Remove from Shopping cart</s:a></td>
                 </tr>
