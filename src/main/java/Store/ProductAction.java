@@ -1,21 +1,27 @@
 package Store;
 
 import com.opensymphony.xwork2.ActionSupport;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAction extends ActionSupport {
-    List<Product> productsTableDataList = null;
-    List<ShoppingCartItem> shoppingCartDataList = null;
-    DatabaseConnection productObject = null;
-    Product productData = null;
-    ShoppingCartItem cartItem= null;
-    int productID, productAmount, shoppingCartID;
-    String productName;
-    float productPrice;
+    private List<Product> productsTableDataList = null;
+    private List<ShoppingCartItem> shoppingCartDataList = null;
+    private DatabaseConnection productObject = null;
+    private Product productData = null;
+    private ShoppingCartItem cartItem= null;
+    private int productID, productAmount, shoppingCartID;
+    private String productName,productType;
+    private float productPrice;
+    private List<String> productTypeList=new ArrayList<>();
+    private List<String> productTableColumnNames=new ArrayList<>();
 
     public String productTable() {
         try {
+            System.out.println(productType);
             productsTableDataList = new DatabaseConnection().fetchProductTableData();
+            productTableColumnNames=new DatabaseConnection().fetchProductTableColumns(productType);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,9 +62,13 @@ public class ProductAction extends ActionSupport {
     }
 
     public String newProductPage(){
+        productTypeList=new DatabaseConnection().fetchProductTypes();
+
         return SUCCESS;
     }
-
+    public String displayNewProductSpecifications(){
+        return SUCCESS;
+    }
     public String insertNewProduct(){
         try {
             productData = new Product();
@@ -125,6 +135,22 @@ public class ProductAction extends ActionSupport {
             e.printStackTrace();
         }
         return SUCCESS;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
+
+    public String getProductType() {
+        return productType;
+    }
+
+    public void setProductTypeList(List<String> productTypeList) {
+        this.productTypeList = productTypeList;
+    }
+
+    public List<String> getProductTypeList() {
+        return productTypeList;
     }
 
     public void setShoppingCartID(int shoppingCartID) {

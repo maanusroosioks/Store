@@ -51,6 +51,10 @@
             <result>/WEB-INF/jsp/insertNewProduct.jsp</result>
         </action>
 
+        <action name="displayNewProductSpecifications" class="Store.ProductAction" method="displayNewProductSpecifications">
+            <result>/WEB-INF/jsp/newProductTypeSelected.jsp</result>
+        </action>
+
         <action name="insertnewproduct" class="Store.ProductAction" method="insertNewProduct">
             <result>/WEB-INF/jsp/productTable.jsp</result>
         </action>

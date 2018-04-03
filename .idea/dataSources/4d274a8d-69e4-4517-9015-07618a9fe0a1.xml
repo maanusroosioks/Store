@@ -916,36 +916,90 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="231" parent="4" name="productpurchase">
+    <table id="231" parent="4" name="clientinfo">
       <Engine>InnoDB</Engine>
     </table>
-    <table id="232" parent="4" name="products">
+    <table id="232" parent="4" name="productpurchase">
       <Engine>InnoDB</Engine>
     </table>
-    <table id="233" parent="4" name="productsale">
+    <table id="233" parent="4" name="products">
       <Engine>InnoDB</Engine>
     </table>
-    <table id="234" parent="4" name="shoppingcart">
+    <table id="234" parent="4" name="productsale">
       <Engine>InnoDB</Engine>
     </table>
-    <column id="235" parent="231" name="purchaseID">
+    <table id="235" parent="4" name="screenproduct">
+      <Engine>InnoDB</Engine>
+    </table>
+    <table id="236" parent="4" name="shoppingcart">
+      <Engine>InnoDB</Engine>
+    </table>
+    <column id="237" parent="231" name="clientID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="236" parent="231" name="productID">
+    <column id="238" parent="231" name="firstName">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="239" parent="231" name="lastName">
+      <Position>3</Position>
+      <DataType>varchar(50)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="240" parent="231" name="email">
+      <Position>4</Position>
+      <DataType>varchar(50)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="241" parent="231" name="userpassword">
+      <Position>5</Position>
+      <DataType>varchar(50)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="242" parent="231" name="clientinfo_clientID_uindex">
+      <ColNames>clientID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="243" parent="231" name="clientinfo_email_uindex">
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="244" parent="231" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>clientID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="245" parent="231" name="clientinfo_clientID_uindex">
+      <ColNames>clientID</ColNames>
+      <UnderlyingIndexName>clientinfo_clientID_uindex</UnderlyingIndexName>
+    </key>
+    <key id="246" parent="231" name="clientinfo_email_uindex">
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>clientinfo_email_uindex</UnderlyingIndexName>
+    </key>
+    <column id="247" parent="232" name="purchaseID">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="248" parent="232" name="productID">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="237" parent="231" name="productAmount">
+    <column id="249" parent="232" name="productAmount">
       <Position>3</Position>
       <DataType>float|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="238" parent="231" name="timestamp">
+    <column id="250" parent="232" name="timestamp">
       <Position>4</Position>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
@@ -953,134 +1007,204 @@
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <index id="239" parent="231" name="productpurchase_purchaseID_uindex">
+    <index id="251" parent="232" name="productpurchase_purchaseID_uindex">
       <ColNames>purchaseID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="240" parent="231" name="PRIMARY">
+    <key id="252" parent="232" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>purchaseID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="241" parent="231" name="productpurchase_purchaseID_uindex">
+    <key id="253" parent="232" name="productpurchase_purchaseID_uindex">
       <ColNames>purchaseID</ColNames>
       <UnderlyingIndexName>productpurchase_purchaseID_uindex</UnderlyingIndexName>
     </key>
-    <column id="242" parent="232" name="productID">
+    <column id="254" parent="233" name="productID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="243" parent="232" name="productName">
+    <column id="255" parent="233" name="productType">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="244" parent="232" name="productAmount">
+    <column id="256" parent="233" name="productName">
       <Position>3</Position>
-      <DataType>int(11)|0</DataType>
+      <DataType>varchar(50)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="245" parent="232" name="productPrice">
+    <column id="257" parent="233" name="productPrice">
       <Position>4</Position>
       <DataType>float|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="246" parent="232" name="products_productID_uindex">
+    <column id="258" parent="233" name="productAmount">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="259" parent="233" name="products_productID_uindex">
       <ColNames>productID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="247" parent="232" name="PRIMARY">
+    <key id="260" parent="233" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>productID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="248" parent="232" name="products_productID_uindex">
+    <key id="261" parent="233" name="products_productID_uindex">
       <ColNames>productID</ColNames>
       <UnderlyingIndexName>products_productID_uindex</UnderlyingIndexName>
     </key>
-    <column id="249" parent="233" name="saleID">
+    <column id="262" parent="234" name="saleID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="250" parent="233" name="productID">
+    <column id="263" parent="234" name="productID">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="251" parent="233" name="totalPrice">
+    <column id="264" parent="234" name="totalPrice">
       <Position>3</Position>
       <DataType>float|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="252" parent="233" name="productAmount">
+    <column id="265" parent="234" name="productAmount">
       <Position>4</Position>
       <DataType>float|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="253" parent="233" name="TIMESTAMP">
+    <column id="266" parent="234" name="TIMESTAMP">
       <Position>5</Position>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="254" parent="233" name="productsale_saleID_uindex">
+    <index id="267" parent="234" name="productsale_saleID_uindex">
       <ColNames>saleID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="255" parent="233" name="PRIMARY">
+    <key id="268" parent="234" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>saleID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="256" parent="233" name="productsale_saleID_uindex">
+    <key id="269" parent="234" name="productsale_saleID_uindex">
       <ColNames>saleID</ColNames>
       <UnderlyingIndexName>productsale_saleID_uindex</UnderlyingIndexName>
     </key>
-    <column id="257" parent="234" name="shoppingCartID">
+    <column id="270" parent="235" name="productID">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="271" parent="235" name="productType">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="272" parent="235" name="a">
+      <Position>3</Position>
+      <DataType>varchar(50)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="273" parent="235" name="b">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="274" parent="235" name="c">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="275" parent="235" name="d">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="276" parent="235" name="e">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="277" parent="235" name="f">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="278" parent="235" name="g">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="279" parent="235" name="h">
+      <Position>10</Position>
+      <DataType>int(11)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="280" parent="235" name="screenProduct_productID_uindex">
+      <ColNames>productID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="281" parent="235" name="screenProduct_productID_uindex">
+      <ColNames>productID</ColNames>
+      <UnderlyingIndexName>screenProduct_productID_uindex</UnderlyingIndexName>
+    </key>
+    <foreign-key id="282" parent="235" name="screenProduct_products_productID_fk">
+      <ColNames>productID</ColNames>
+      <RefSchemaName>new_schema</RefSchemaName>
+      <RefTableName>products</RefTableName>
+      <RefColNames>productID</RefColNames>
+    </foreign-key>
+    <column id="283" parent="236" name="shoppingCartID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="258" parent="234" name="clientName">
+    <column id="284" parent="236" name="email">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="234" name="productID">
+    <column id="285" parent="236" name="productID">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="234" name="productName">
+    <column id="286" parent="236" name="productAmount">
       <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="287" parent="236" name="productName">
+      <Position>5</Position>
       <DataType>varchar(50)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="261" parent="234" name="productAmount">
-      <Position>5</Position>
-      <DataType>int(11)|0</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="262" parent="234" name="shoppingcart_shoppingCartID_uindex">
+    <index id="288" parent="236" name="shoppingcart_shoppingCartID_uindex">
       <ColNames>shoppingCartID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="263" parent="234" name="PRIMARY">
+    <key id="289" parent="236" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>shoppingCartID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="264" parent="234" name="shoppingcart_shoppingCartID_uindex">
+    <key id="290" parent="236" name="shoppingcart_shoppingCartID_uindex">
       <ColNames>shoppingCartID</ColNames>
       <UnderlyingIndexName>shoppingcart_shoppingCartID_uindex</UnderlyingIndexName>
     </key>

@@ -15,18 +15,6 @@ public class DatabaseConnection {
     private static final String password = "maanus";
     private static List<String> columnNames = new ArrayList<>();
 
-    public static String getUrl() {
-        return url;
-    }
-
-    public static String getUsername() {
-        return username;
-    }
-
-    public static String getPassword() {
-        return password;
-    }
-
     public Product findProductEntry(int productID) {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -228,6 +216,81 @@ public class DatabaseConnection {
 
     }
 
+    public  List<String> fetchProductTypes() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List <String> productTypeList=new ArrayList<>();
+        try {
+            conn = DriverManager.getConnection(url, username, password);
+            pstmt = conn.prepareStatement("SELECT productType FROM products");
+            rs = pstmt.executeQuery();
+            while(rs.next()){
+                String productType=rs.getString("productType");
+                productTypeList.add(productType);
+            }
+            return productTypeList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public List<String> fetchProductTableColumns(String tableName){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List <String> productTableColumnNames=new ArrayList<>();
+        try {
+            conn = DriverManager.getConnection(url, username, password);
+            pstmt = conn.prepareStatement("SELECT * FROM ?");
+            pstmt.setString(1,tableName);
+            rs = pstmt.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            for (int i = 1; i <= columnCount; i++ ) {
+                String name = rsmd.getColumnName(i);
+                productTableColumnNames.add(name);
+                System.out.println(name);
+            }
+            return productTableColumnNames;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public List<ShoppingCartItem> fetchShoppingCartData() {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -380,6 +443,18 @@ public class DatabaseConnection {
         }
     }
 
+
+    public static String getUrl() {
+        return url;
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
     //
 //
 //

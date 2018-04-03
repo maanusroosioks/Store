@@ -46,9 +46,15 @@
                              value="%{productData.productPrice}"/>
             </div>
         </div>
-        <div class="row">
-            <s:submit class="btn btn-info"/>
-        </div>
+    </s:form>
+    <s:form action="displayNewProductSpecifications">
+        <s:select label="Select product type"
+                  name="productType"
+                  headerValue="Select product type"
+                  list="%{productTypeList}"
+                  value="productType"
+                  onchange="this.form.submit()"
+        />
     </s:form>
 </div>
 </body>
