@@ -14,25 +14,11 @@ public class ClientAction extends ProductAction implements SessionAware{
     private Client client;
     private SessionMap<String, String> userSession ;
 
-
-//    public String execute(){
-//        if{
-//            return "success";
-//        }
-//        else{
-//            return "error";
-//        }
-//    }
-
-
     public void setSession(Map<String, Object> map) {
         userSession = (SessionMap) map ;
 
     }
-//    public void setSession(Map map) {
-//        sessionmap=(SessionMap)map;
-//        sessionmap.put("login","true");
-//    }
+
 
     public String logout(){
         userSession.invalidate();

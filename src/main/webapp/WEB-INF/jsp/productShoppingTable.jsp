@@ -18,6 +18,7 @@
             <tr>
                 <div class="row">
                     <th>Product ID</th>
+                    <th>Product type</th>
                     <th>Product name</th>
                     <th>Product amount</th>
                 </div>
@@ -30,11 +31,13 @@
                         <s:param value="productID" name="productID"/>
                     </s:url>
                     <td><s:a href="%{findUserUrl}"><s:property value="productID"/></s:a></td>
+                    <td><s:property value="productType"/></td>
                     <td><s:property value="productName"/></td>
                     <td><s:property value="productPrice"/></td>
                     <td><s:url var="addToShoppingCart" action="addToShoppingCart">
                         <s:param value="productName" name="productName"/>
                         <s:param value="productID" name="productID"/>
+                        <s:param value="productType" name="productType"/>
                     </s:url>
                         <s:a class="btn btn-danger" href="%{addToShoppingCart}">Add to shopping cart</s:a></td>
                 </tr>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class DatabaseConnection {
@@ -23,7 +24,7 @@ public class DatabaseConnection {
         try {
             conn = DriverManager.getConnection(url, username, password);
             pstmt = conn.prepareStatement("SELECT productID,  productName ,  productAmount , " +
-                    " productPrice FROM products WHERE productID=?");
+                    " productPrice,productType FROM products WHERE productID=?");
             pstmt.setInt(1, productID);
             rs = pstmt.executeQuery();
             rs.next();
@@ -32,6 +33,7 @@ public class DatabaseConnection {
             productData.setProductName(rs.getString("productName"));
             productData.setProductAmount(rs.getInt("productAmount"));
             productData.setProductPrice(rs.getFloat("productPrice"));
+            productData.setProductType(rs.getString("productType"));
             return productData;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,7 +66,7 @@ public class DatabaseConnection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, password);
-            String query = "SELECT productID,  productName ,  productAmount ,  productPrice FROM products";
+            String query = "SELECT productID,  productName ,  productAmount ,  productPrice, productType FROM products";
             stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
             productsTableDataList = new ArrayList<Product>();
@@ -75,6 +77,7 @@ public class DatabaseConnection {
                     productData.setProductName(rs.getString("productName"));
                     productData.setProductAmount(rs.getInt("productAmount"));
                     productData.setProductPrice(rs.getFloat("productPrice"));
+                    productData.setProductType(rs.getString("productType"));
                     productsTableDataList.add(productData);
                 }
                 return productsTableDataList;
@@ -130,17 +133,68 @@ public class DatabaseConnection {
         }
     }
 
-    public void insertProductEntry(Product productData) {
+    public int insertProductEntry(Product productData) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int queryID = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(url, username, password);
+            pstmt = conn.prepareStatement("INSERT INTO products (productName," +
+                    " productAmount,productPrice,productType) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, productData.productName);
+            pstmt.setFloat(2, productData.productAmount);
+            pstmt.setFloat(3, productData.productPrice);
+            pstmt.setString(4, productData.productType);
+            pstmt.executeUpdate();
+            rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                queryID = rs.getInt(1);
+            }
+            return queryID;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return queryID;
+    }
+
+    public void insertProductSpecifications(Product productData, List<String> productTableColumnNames,
+                                            Map<String, Object> productTableSpecValues) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, password);
-            pstmt = conn.prepareStatement("INSERT INTO products (productName," +
-                    " productAmount,productPrice) VALUES (?,?,?)");
-            pstmt.setString(1, productData.productName);
-            pstmt.setFloat(2, productData.productAmount);
-            pstmt.setFloat(3, productData.productPrice);
+            StringBuilder queryString=new StringBuilder();
+            queryString.append("INSERT INTO " + productData.productType +" (productID,productType");
+            for(String value:productTableColumnNames){
+                queryString.append(","+value);
+            }
+            queryString.append(") VALUES (?,?");
+            for(String value:productTableColumnNames){
+                queryString.append(",?");
+            }
+            queryString.append(")");
+            String queryStringComplete=queryString.toString();
+            pstmt = conn.prepareStatement(queryStringComplete);
+            pstmt.setInt(1, productData.productID);
+            pstmt.setString(2, productData.productType);
+            for(int i=0;i<productTableColumnNames.size();i++){
+                pstmt.setString(i+3, (String) productTableSpecValues.get(productTableColumnNames.get(i)));
+            }
             pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -188,15 +242,15 @@ public class DatabaseConnection {
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
-            HttpServletRequest request= ServletActionContext.getRequest();
-            HttpSession session=request.getSession();
-            String email=(String)session.getAttribute("email");
+            HttpServletRequest request = ServletActionContext.getRequest();
+            HttpSession session = request.getSession();
+            String email = (String) session.getAttribute("email");
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, password);
             pstmt = conn.prepareStatement("INSERT INTO shoppingcart (email,productName, productID, productAmount) VALUES (?,?,?,?)");
             pstmt.setString(1, email);
             pstmt.setString(2, productData.productName);
-            pstmt.setInt(3,productData.productID);
+            pstmt.setInt(3, productData.productID);
             pstmt.setInt(4, 1);
             pstmt.executeUpdate();
         } catch (Exception e) {
@@ -216,17 +270,17 @@ public class DatabaseConnection {
 
     }
 
-    public  List<String> fetchProductTypes() {
+    public List<String> fetchProductTypes() {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        List <String> productTypeList=new ArrayList<>();
+        List<String> productTypeList = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(url, username, password);
-            pstmt = conn.prepareStatement("SELECT productType FROM products");
+            pstmt = conn.prepareStatement("SELECT productType FROM producttypes");
             rs = pstmt.executeQuery();
-            while(rs.next()){
-                String productType=rs.getString("productType");
+            while (rs.next()) {
+                String productType = rs.getString("productType");
                 productTypeList.add(productType);
             }
             return productTypeList;
@@ -252,22 +306,45 @@ public class DatabaseConnection {
         }
     }
 
-    public List<String> fetchProductTableColumns(String tableName){
+    public void insertIntoProductTypeTable(Product productData) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            conn = DriverManager.getConnection(url, username, password);
+            pstmt = conn.prepareStatement("INSERT  INTO producttypes (productType) VALUES(?)");
+            pstmt.setString(1,productData.productType);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public List<String> fetchProductTableColumns(String tableName) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        List <String> productTableColumnNames=new ArrayList<>();
+        List<String> productTableColumnNames = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(url, username, password);
-            pstmt = conn.prepareStatement("SELECT * FROM ?");
-            pstmt.setString(1,tableName);
+            pstmt = conn.prepareStatement("SELECT * FROM " + tableName);
+
             rs = pstmt.executeQuery();
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnCount = rsmd.getColumnCount();
-            for (int i = 1; i <= columnCount; i++ ) {
+            for (int i = 1; i <= columnCount; i++) {
                 String name = rsmd.getColumnName(i);
                 productTableColumnNames.add(name);
-                System.out.println(name);
             }
             return productTableColumnNames;
         } catch (SQLException e) {
@@ -291,6 +368,80 @@ public class DatabaseConnection {
             }
         }
     }
+
+    public List<String> fetchProductSpecifications(Product productData, List<String> productColumnNames) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<String> productSpecifcationsData = new ArrayList<>();
+        try {
+            conn = DriverManager.getConnection(url, username, password);
+            pstmt = conn.prepareStatement("SELECT * FROM " + productData.productType+" WHERE productID=?");
+            pstmt.setInt(1,productData.productID);
+            rs = pstmt.executeQuery();
+            rs.next();
+            for(String name:productColumnNames){
+                productSpecifcationsData.add(rs.getString(name));
+            }
+            return productSpecifcationsData;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void createNewProductTable(List<String> productTableColumnNames,Product productData) {
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        conn = DriverManager.getConnection(url, username, password);
+        StringBuilder tableString=new StringBuilder();
+        tableString.append("CREATE TABLE "+ productData.productType+" (productID INT NOT NULL, " +
+                "productType VARCHAR(50) NOT NULL, ");
+        for(String columnName:productTableColumnNames) {
+            tableString.append(columnName +" VARCHAR(50) NULL, ");
+        }
+        tableString.append("CONSTRAINT "+ productData.productType+"_productID_uindex UNIQUE (productID), " +
+                "CONSTRAINT "+ productData.productType+"_products_productID_fk " +
+                "FOREIGN KEY (productID) REFERENCES products (productID))");
+        String queryString=tableString.toString();
+        pstmt = conn.prepareStatement(queryString);
+        pstmt.executeUpdate();
+    } catch( Exception e)
+    {
+        e.printStackTrace();
+    } finally
+    {
+        try {
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
     public List<ShoppingCartItem> fetchShoppingCartData() {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -300,9 +451,9 @@ public class DatabaseConnection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, password);
-            HttpServletRequest request= ServletActionContext.getRequest();
-            HttpSession session=request.getSession();
-            String email=(String)session.getAttribute("email");
+            HttpServletRequest request = ServletActionContext.getRequest();
+            HttpSession session = request.getSession();
+            String email = (String) session.getAttribute("email");
             pstmt = conn.prepareStatement("SELECT shoppingcart.productID,  " +
                     "shoppingcart.productName ,shoppingcart.productAmount, clientinfo.firstName," +
                     "clientinfo.lastName, shoppingCartID FROM shoppingcart INNER JOIN " +
@@ -313,8 +464,8 @@ public class DatabaseConnection {
             if (rs != null) {
                 while (rs.next()) {
                     cartItem = new ShoppingCartItem();
-                    cartItem.setClientName(rs.getString("firstName")+ " "
-                            +rs.getString("lastName"));
+                    cartItem.setClientName(rs.getString("firstName") + " "
+                            + rs.getString("lastName"));
                     cartItem.setProductID(rs.getInt("productID"));
                     cartItem.setProductName(rs.getString("productName"));
                     cartItem.setProductAmount(rs.getInt("productAmount"));
@@ -347,18 +498,18 @@ public class DatabaseConnection {
         return shoppingCartDataList;
     }
 
-    public void deleteFromShoppingCart(ShoppingCartItem cartItem){
+    public void deleteFromShoppingCart(ShoppingCartItem cartItem) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, password);
-            HttpServletRequest request= ServletActionContext.getRequest();
-            HttpSession session=request.getSession();
-            String email=(String)session.getAttribute("email");
+            HttpServletRequest request = ServletActionContext.getRequest();
+            HttpSession session = request.getSession();
+            String email = (String) session.getAttribute("email");
             pstmt = conn.prepareStatement("DELETE FROM shoppingcart WHERE shoppingCartID=? AND email=?");
             pstmt.setInt(1, cartItem.shoppingCartID);
-            pstmt.setString(2,email);
+            pstmt.setString(2, email);
             pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -387,7 +538,7 @@ public class DatabaseConnection {
             pstmt.setString(1, client.firstName);
             pstmt.setString(2, client.lastName);
             pstmt.setString(3, client.email);
-            pstmt.setString(4,client.userpassword);
+            pstmt.setString(4, client.userpassword);
             pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -419,7 +570,7 @@ public class DatabaseConnection {
             pstmt.setString(1, email);
             pstmt.setString(2, userpassword);
             rs = pstmt.executeQuery();
-            status=rs.next();
+            status = rs.next();
             return status;
         } catch (Exception e) {
             e.printStackTrace();
@@ -455,6 +606,7 @@ public class DatabaseConnection {
     public static String getPassword() {
         return password;
     }
+
     //
 //
 //

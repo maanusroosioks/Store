@@ -59,8 +59,20 @@
             <result>/WEB-INF/jsp/productTable.jsp</result>
         </action>
 
+        <action name="productTypeCreationPage" class="Store.ProductAction" method="productTypeCreationPage">
+            <result>/WEB-INF/jsp/createNewProductTable.jsp</result>
+        </action>
+
+        <action name="createnewproducttable" class="Store.ProductAction" method="createNewProductTable">
+            <result>/WEB-INF/jsp/index.jsp</result>
+        </action>
+
         <action name="deleteproductentry" class="Store.ProductAction" method="deleteProduct">
             <result>/WEB-INF/jsp/productTable.jsp</result>
+        </action>
+
+        <action name="productOverview" class="Store.ClientAction" method="productSpecificationsPage">
+            <result >/WEB-INF/jsp/productDescription.jsp</result>
         </action>
 
         <action name="clientRegistrationPage" class="Store.ClientAction" method="clientRegistrationPage">

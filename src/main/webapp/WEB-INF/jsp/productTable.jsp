@@ -17,10 +17,11 @@
             <thead>
             <tr>
                 <div class="row">
-                <th>productID</th>
-                <th>productName</th>
-                <th>productAmount</th>
-                <th>productPrice</th>
+                <th>PROUDCT ID</th>
+                <th>PRODUCT TYPE</th>
+                <th>PRODUCT NAME</th>
+                <th>PRODUCT AMOUNT</th>
+                <th>PRODUCT PRICE</th>
                 </div>
             </tr>
             </thead>
@@ -31,6 +32,7 @@
                         <s:param value="productID" name="productID"/>
                     </s:url>
                     <td><s:a href="%{findUserUrl}"><s:property value="productID"/></s:a></td>
+                    <td><s:property value="productType"/></td>
                     <td><s:property value="productName"/></td>
                     <td><s:property value="productAmount"/></td>
                     <td><s:property value="productPrice"/></td>

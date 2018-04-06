@@ -2,26 +2,26 @@ package Store;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ProductAction extends ActionSupport {
     private List<Product> productsTableDataList = null;
     private List<ShoppingCartItem> shoppingCartDataList = null;
     private DatabaseConnection productObject = null;
     private Product productData = null;
-    private ShoppingCartItem cartItem= null;
+    private ShoppingCartItem cartItem = null;
     private int productID, productAmount, shoppingCartID;
-    private String productName,productType;
+    private String productName, productType, value1, value2, value3, value4, value5, value6, value7, value8 = null;
     private float productPrice;
-    private List<String> productTypeList=new ArrayList<>();
-    private List<String> productTableColumnNames=new ArrayList<>();
+    private List<String> productTypeList = new ArrayList<>();
+    private List<String> productTableColumnNames = new ArrayList<>();
+    private Map<String, Object> productTableSpecValues;
+    private List<String> productSpecValueList = new ArrayList<>();
+    private List<String> productSpecificationsData = new ArrayList<>();
 
     public String productTable() {
         try {
-            System.out.println(productType);
             productsTableDataList = new DatabaseConnection().fetchProductTableData();
-            productTableColumnNames=new DatabaseConnection().fetchProductTableColumns(productType);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,22 +61,63 @@ public class ProductAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String newProductPage(){
-        productTypeList=new DatabaseConnection().fetchProductTypes();
+    public String newProductPage() {
+        productTypeList = new DatabaseConnection().fetchProductTypes();
+        return SUCCESS;
+    }
+
+    public String displayNewProductSpecifications() {
+        productTypeList = new DatabaseConnection().fetchProductTypes();
+        productTableColumnNames = new DatabaseConnection().fetchProductTableColumns(productType);
+        productTableSpecValues = new HashMap<>();
+        for (String productTableColumnName : productTableColumnNames) {
+            productTableSpecValues.put(productTableColumnName, null);
+        }
 
         return SUCCESS;
     }
-    public String displayNewProductSpecifications(){
-        return SUCCESS;
-    }
-    public String insertNewProduct(){
+
+    public String productSpecificationsPage() {
         try {
             productData = new Product();
+            productData = new DatabaseConnection().findProductEntry(productID);
+            productTableColumnNames = new DatabaseConnection().fetchProductTableColumns(productData.productType);
+            productTableColumnNames.remove(1);
+            productTableColumnNames.remove(0);
+            productSpecificationsData = new DatabaseConnection().fetchProductSpecifications(productData, productTableColumnNames);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    public String insertNewProduct() {
+        try {
+            productTableColumnNames = new DatabaseConnection().fetchProductTableColumns(productType);
+            productTableColumnNames.remove(1);
+            productTableColumnNames.remove(0);
+            productTableSpecValues = new HashMap<>();
+            productSpecValueList = new ArrayList<>();
+            productSpecValueList.add(value1);
+            productSpecValueList.add(value2);
+            productSpecValueList.add(value3);
+            productSpecValueList.add(value4);
+            productSpecValueList.add(value5);
+            productSpecValueList.add(value6);
+            productSpecValueList.add(value7);
+            productSpecValueList.add(value8);
+            for (int i = 0; i < productTableColumnNames.size(); i++) {
+                productTableSpecValues.put(productTableColumnNames.get(i), productSpecValueList.get(i));
+            }
+            productData = new Product();
             productData.setProductID(productID);
+            productData.setProductType(productType);
             productData.setProductName(productName);
             productData.setProductAmount(productAmount);
             productData.setProductPrice(productPrice);
-            new DatabaseConnection().insertProductEntry(productData);
+            int queryID = new DatabaseConnection().insertProductEntry(productData);
+            productData.setProductID(queryID);
+            new DatabaseConnection().insertProductSpecifications(productData, productTableColumnNames, productTableSpecValues);
             productsTableDataList = new DatabaseConnection().fetchProductTableData();
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,7 +125,39 @@ public class ProductAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String deleteProduct(){
+    public String productTypeCreationPage() {
+        return SUCCESS;
+    }
+
+    public String createNewProductTable() {
+        try {
+            productTableColumnNames = new ArrayList<>();
+            productTableColumnNames.add(value1);
+            productTableColumnNames.add(value2);
+            productTableColumnNames.add(value3);
+            productTableColumnNames.add(value4);
+            productTableColumnNames.add(value5);
+            productTableColumnNames.add(value6);
+            productTableColumnNames.add(value7);
+            productTableColumnNames.add(value8);
+            Iterator<String> iter = productTableColumnNames.iterator();
+            while (iter.hasNext()) {
+                String clg = iter.next();
+                if (clg.length() == 0) {
+                    iter.remove();
+                }
+            }
+            productData = new Product();
+            productData.setProductType(productType);
+            new DatabaseConnection().createNewProductTable(productTableColumnNames, productData);
+            new DatabaseConnection().insertIntoProductTypeTable(productData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    public String deleteProduct() {
         try {
             productData = new Product();
             productData.setProductID(productID);
@@ -99,7 +172,7 @@ public class ProductAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String addToShoppingCart(){
+    public String addToShoppingCart() {
         try {
             productData = new Product();
             productData.setProductID(productID);
@@ -121,7 +194,8 @@ public class ProductAction extends ActionSupport {
         }
         return SUCCESS;
     }
-    public String deleteFromShoppingCart(){
+
+    public String deleteFromShoppingCart() {
         try {
             cartItem = new ShoppingCartItem();
             cartItem.setProductID(productID);
@@ -136,6 +210,31 @@ public class ProductAction extends ActionSupport {
         }
         return SUCCESS;
     }
+
+    public List<String> getProductSpecificationsData() {
+        return productSpecificationsData;
+    }
+
+    public void setProductSpecificationsData(List<String> productSpecificationsData) {
+        this.productSpecificationsData = productSpecificationsData;
+    }
+
+    public Map<String, Object> getProductTableSpecValues() {
+        return productTableSpecValues;
+    }
+
+    public void setProductTableSpecValues(Map<String, Object> productTableSpecValues) {
+        this.productTableSpecValues = productTableSpecValues;
+    }
+
+    public List<String> getProductTableColumnNames() {
+        return productTableColumnNames;
+    }
+
+    public void setProductTableColumnNames(List<String> productTableColumnNames) {
+        this.productTableColumnNames = productTableColumnNames;
+    }
+
 
     public void setProductType(String productType) {
         this.productType = productType;
@@ -233,4 +332,67 @@ public class ProductAction extends ActionSupport {
         this.productPrice = productPrice;
     }
 
+    public String getValue1() {
+        return value1;
+    }
+
+    public String getValue2() {
+        return value2;
+    }
+
+    public String getValue3() {
+        return value3;
+    }
+
+    public String getValue4() {
+        return value4;
+    }
+
+    public String getValue5() {
+        return value5;
+    }
+
+    public String getValue6() {
+        return value6;
+    }
+
+    public String getValue7() {
+        return value7;
+    }
+
+    public String getValue8() {
+        return value8;
+    }
+
+    public void setValue1(String value1) {
+        this.value1 = value1;
+    }
+
+    public void setValue2(String value2) {
+        this.value2 = value2;
+    }
+
+    public void setValue3(String value3) {
+        this.value3 = value3;
+    }
+
+    public void setValue4(String value4) {
+        this.value4 = value4;
+    }
+
+    public void setValue5(String value5) {
+        this.value5 = value5;
+    }
+
+    public void setValue6(String value6) {
+        this.value6 = value6;
+    }
+
+    public void setValue7(String value7) {
+        this.value7 = value7;
+    }
+
+    public void setValue8(String value8) {
+        this.value8 = value8;
+    }
 }

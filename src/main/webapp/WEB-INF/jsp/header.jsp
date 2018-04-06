@@ -21,6 +21,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="<s:url action="productTypeCreationPage"/>">
+                    Create new product type
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="<s:url action="shoppingCartTable"/>">
                     Shopping cart
                 </a>

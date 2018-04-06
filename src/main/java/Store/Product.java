@@ -2,8 +2,16 @@ package Store;
 
 public class Product {
     int productID, productAmount;
-    String productName;
+    String productName,productType;
     float productPrice;
+
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
+
+    public String getProductType() {
+        return productType;
+    }
 
     public void setProductID(int productID) {
         this.productID = productID;
