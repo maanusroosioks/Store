@@ -2,6 +2,7 @@ package Store;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+
 import java.util.*;
 
 public class ProductAction extends ActionSupport {
@@ -16,8 +17,9 @@ public class ProductAction extends ActionSupport {
     private List<String> productTypeList = new ArrayList<>();
     private List<String> productTableColumnNames = new ArrayList<>();
     private Map<String, Object> productTableSpecValues;
-    private List<String> productSpecValueList = new ArrayList<>();
+    private String[] productSpecValueList;
     private List<String> productSpecificationsData = new ArrayList<>();
+    private Map<String,ArrayList<String>> productTypeSpecificationsData= new HashMap<>();;
 
     public String productTable() {
         try {
@@ -30,16 +32,36 @@ public class ProductAction extends ActionSupport {
 
     public String productShoppingTable() {
         try {
-            productsTableDataList = new DatabaseConnection().fetchProductTableData();
+            productTypeList = new DatabaseConnection().fetchProductTypes();
+            if(productType==null){
+                productsTableDataList = new DatabaseConnection().fetchProductTableData();
+            }
+            else{
+                System.out.println(productTypeSpecificationsData.get("b"));
+                System.out.println("___");
+                productsTableDataList = new DatabaseConnection().fetchProductTableData(productType);
+                productTableColumnNames = new DatabaseConnection().fetchProductTableColumns(productType);
+                productTableColumnNames.remove(1);
+                productTableColumnNames.remove(0);
+                productTypeSpecificationsData=new DatabaseConnection().fetchProductSpecValuesForFiltering(productTableColumnNames,productType);
+                System.out.println(productTypeSpecificationsData.get("b"));
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return SUCCESS;
     }
 
+
+
     public String fetchProductEditingValues() {
         try {
             productData = new DatabaseConnection().findProductEntry(productID);
+            productTableColumnNames = new DatabaseConnection().fetchProductTableColumns(productData.productType);
+            productTableColumnNames.remove(1);
+            productTableColumnNames.remove(0);
+            productSpecificationsData = new DatabaseConnection().fetchProductSpecifications(productData, productTableColumnNames);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,7 +75,17 @@ public class ProductAction extends ActionSupport {
             productData.setProductName(productName);
             productData.setProductAmount(productAmount);
             productData.setProductPrice(productPrice);
+            productData.setProductType(productType);
             new DatabaseConnection().updateProductEntry(productData);
+            productTableColumnNames = new DatabaseConnection().fetchProductTableColumns(productType);
+            productTableColumnNames.remove(1);
+            productTableColumnNames.remove(0);
+            productTableSpecValues = new HashMap<>();
+            productSpecValueList = new String[] {value1,value2,value3,value4,value5,value6,value7,value8};
+            for (int i = 0; i < productTableColumnNames.size(); i++) {
+                productTableSpecValues.put(productTableColumnNames.get(i), productSpecValueList[i]);
+            }
+            new DatabaseConnection().updateProductSpecifications(productData, productTableColumnNames, productTableSpecValues);
             productsTableDataList = new DatabaseConnection().fetchProductTableData();
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,13 +99,12 @@ public class ProductAction extends ActionSupport {
     }
 
     public String displayNewProductSpecifications() {
-        productTypeList = new DatabaseConnection().fetchProductTypes();
-        productTableColumnNames = new DatabaseConnection().fetchProductTableColumns(productType);
-        productTableSpecValues = new HashMap<>();
-        for (String productTableColumnName : productTableColumnNames) {
-            productTableSpecValues.put(productTableColumnName, null);
+        try {
+            productTypeList = new DatabaseConnection().fetchProductTypes();
+            productTableColumnNames = new DatabaseConnection().fetchProductTableColumns(productType);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
         return SUCCESS;
     }
 
@@ -97,17 +128,9 @@ public class ProductAction extends ActionSupport {
             productTableColumnNames.remove(1);
             productTableColumnNames.remove(0);
             productTableSpecValues = new HashMap<>();
-            productSpecValueList = new ArrayList<>();
-            productSpecValueList.add(value1);
-            productSpecValueList.add(value2);
-            productSpecValueList.add(value3);
-            productSpecValueList.add(value4);
-            productSpecValueList.add(value5);
-            productSpecValueList.add(value6);
-            productSpecValueList.add(value7);
-            productSpecValueList.add(value8);
+            productSpecValueList = new String[] {value1,value2,value3,value4,value5,value6,value7,value8};
             for (int i = 0; i < productTableColumnNames.size(); i++) {
-                productTableSpecValues.put(productTableColumnNames.get(i), productSpecValueList.get(i));
+                productTableSpecValues.put(productTableColumnNames.get(i), productSpecValueList[i]);
             }
             productData = new Product();
             productData.setProductID(productID);
@@ -164,6 +187,7 @@ public class ProductAction extends ActionSupport {
             productData.setProductName(productName);
             productData.setProductAmount(productAmount);
             productData.setProductPrice(productPrice);
+            productData.setProductType(productType);
             new DatabaseConnection().deleteProductEntry(productData);
             productsTableDataList = new DatabaseConnection().fetchProductTableData();
         } catch (Exception e) {
@@ -209,6 +233,22 @@ public class ProductAction extends ActionSupport {
             e.printStackTrace();
         }
         return SUCCESS;
+    }
+
+    public Map<String, ArrayList<String>> getProductTypeSpecificationsData() {
+        return productTypeSpecificationsData;
+    }
+
+    public void setProductTypeSpecificationsData(Map<String, ArrayList<String>> productTypeSpecificationsData) {
+        this.productTypeSpecificationsData = productTypeSpecificationsData;
+    }
+
+    public void setProductSpecValueList(String[] productSpecValueList) {
+        this.productSpecValueList = productSpecValueList;
+    }
+
+    public String[] getProductSpecValueList() {
+        return productSpecValueList;
     }
 
     public List<String> getProductSpecificationsData() {

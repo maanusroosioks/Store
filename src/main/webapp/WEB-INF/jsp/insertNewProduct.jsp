@@ -15,14 +15,13 @@
 <s:include value="header.jsp"/>
 <div id="content" class="container">
     <h3>Enter New Values</h3>
-
-    <s:form action="displayNewProductSpecifications">
+    <s:form action="displayNewProductSpecifications" id="productTypeSelection">
         <s:select label="Select product type"
                   name="productType"
                   headerValue="Select product type"
                   list="%{productTypeList}"
-                  value="productType"
                   onchange="this.form.submit()"
+                  emptyOption="true"
         />
     </s:form>
 </div>
