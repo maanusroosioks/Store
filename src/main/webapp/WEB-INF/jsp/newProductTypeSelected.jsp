@@ -3,16 +3,16 @@
 <jsp:include page="insertNewProduct.jsp"></jsp:include>
 
 <div class="container">
-    <s:form action="insertnewproduct" theme="simple">
-        <s:label> <s:property value="productType"/> </s:label>
-        <s:hidden name="productType" value="%{productType}"/>
-        <s:hidden name="productID" value="%{productID}"/>
+    <s:form action="insertNewProduct" theme="simple">
+        <s:label> <s:property value="productData.productType"/> </s:label>
+        <s:hidden name="productData.productType" value="%{productData.productType}"/>
+        <s:hidden name="productData.productID" value="%{productData.productID}"/>
         <div class="row">
             <div class="col-md-2">
                 <label>PRODUCT NAME: </label>
             </div>
             <div class="col-md-2">
-                <s:textfield label="PRODUCT NAME" name="productName" class="form-control"
+                <s:textfield label="PRODUCT NAME" name="productData.productName" class="form-control"
                              value="%{productData.productName}"/>
             </div>
         </div>
@@ -21,7 +21,7 @@
                 <label>PRODUCT AMOUNT: </label>
             </div>
             <div class="col-md-2">
-                <s:textfield name="productAmount" class="form-control"
+                <s:textfield name="productData.productAmount" class="form-control"
                              value="%{productData.productAmount}"/>
             </div>
         </div>
@@ -30,7 +30,7 @@
                 <label>PRODUCT PRICE: </label>
             </div>
             <div class="col-md-2">
-                <s:textfield class="form-control" name="productPrice"
+                <s:textfield class="form-control" name="productData.productPrice"
                              value="%{productData.productPrice}"/>
             </div>
         </div>

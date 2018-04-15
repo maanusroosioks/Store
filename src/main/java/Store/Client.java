@@ -1,8 +1,8 @@
 package Store;
 
 public class Client {
-    String firstName,lastName,email,userpassword;
-    int clientID;
+    private String firstName,lastName,email,userpassword;
+    private int clientID;
 
     public void setClientID(int clientID) {
         this.clientID = clientID;

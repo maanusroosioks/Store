@@ -3,8 +3,8 @@ package Store;
 public class ShoppingCartItem extends Product {
 
 
-        String clientName;
-        int shoppingCartID;
+    private String clientName;
+    private int shoppingCartID;
 
     public String getClientName() {
         return clientName;
@@ -21,7 +21,6 @@ public class ShoppingCartItem extends Product {
     public void setShoppingCartID(int shoppingCartID) {
         this.shoppingCartID = shoppingCartID;
     }
-
 
 
 }

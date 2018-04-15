@@ -17,7 +17,7 @@
     <h3>Enter New Values</h3>
     <s:form action="displayNewProductSpecifications" id="productTypeSelection">
         <s:select label="Select product type"
-                  name="productType"
+                  name="productData.productType"
                   headerValue="Select product type"
                   list="%{productTypeList}"
                   onchange="this.form.submit()"

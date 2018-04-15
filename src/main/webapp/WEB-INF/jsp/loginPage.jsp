@@ -18,11 +18,9 @@
     <h3>Enter email and password</h3>
     <s:form action="clientLogIn" theme="simple">
         <div class="row">
-            <div class="col-md-2">
-                <label>EMAIL: </label>
-            </div>
-            <div class="col-md-3">
-                <s:textfield name="email" class="form-control"
+            <div class="form-group">
+                <label for="emailId">EMAIL: </label>
+                <s:textfield id="emailId" name="client.email" class="form-control"
                              value="%{client.email}"/>
             </div>
         </div>
@@ -33,7 +31,7 @@
 
             </div>
             <div class="col-md-3">
-                <s:textfield name="userpassword" class="form-control"
+                <s:textfield name="client.userpassword" class="form-control"
                              value="%{client.userpassword}"/>
             </div>
         </div>

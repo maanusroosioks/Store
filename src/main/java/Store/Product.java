@@ -1,9 +1,9 @@
 package Store;
 
 public class Product {
-    int productID, productAmount;
-    String productName,productType;
-    float productPrice;
+    private int productID, productAmount;
+    private String productName,productType;
+    private float productPrice;
 
     public void setProductType(String productType) {
         this.productType = productType;

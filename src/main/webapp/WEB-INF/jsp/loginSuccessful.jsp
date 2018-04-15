@@ -3,4 +3,4 @@
 
 <jsp:include page="index.jsp"></jsp:include>
 <hr/>
-<br/>Welcome, <s:property value="email"/>
+<br/>Welcome, <s:property value="client.email"/>

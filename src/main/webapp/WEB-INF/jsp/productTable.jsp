@@ -15,20 +15,16 @@
     <div class="table-responsive" >
         <table class="table">
             <thead>
-            <tr>
-                <div class="row">
                 <th>PROUDCT ID</th>
                 <th>PRODUCT TYPE</th>
                 <th>PRODUCT NAME</th>
                 <th>PRODUCT AMOUNT</th>
                 <th>PRODUCT PRICE</th>
-                </div>
-            </tr>
             </thead>
             <tbody>
             <s:iterator value="productsTableDataList">
                 <tr>
-                    <s:url var="findUserUrl" action="valuespage">
+                    <s:url var="findUserUrl" action="valuesPage">
                         <s:param value="productID" name="productID"/>
                     </s:url>
                     <td><s:a href="%{findUserUrl}"><s:property value="productID"/></s:a></td>
@@ -42,7 +38,7 @@
         </table>
     </div>
     <div>
-        <s:form action="newproductentry" theme="simple">
+        <s:form action="newProductEntry" theme="simple">
             <s:submit class="btn btn-info" value="New product"/>
         </s:form>
     </div>

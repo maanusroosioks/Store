@@ -22,7 +22,7 @@
 
             </div>
             <div class="col-md-3">
-                <s:textfield  name="firstName" class="form-control"
+                <s:textfield  name="client.firstName" class="form-control"
                               value="%{client.firstName}"/>
             </div>
         </div>
@@ -33,7 +33,7 @@
 
             </div>
             <div class="col-md-3">
-                <s:textfield label="LAST NAME" name="lastName" class="form-control"
+                <s:textfield label="LAST NAME" name="client.lastName" class="form-control"
                              value="%{client.lastName}"/>
             </div>
         </div>
@@ -43,7 +43,7 @@
 
             </div>
             <div class="col-md-3">
-                <s:textfield label="EMAIL ADDRESS" class="form-control" name="email"
+                <s:textfield label="EMAIL ADDRESS" class="form-control" name="client.email"
                              value="%{client.email}"/>
             </div>
         </div>
@@ -54,7 +54,7 @@
 
             </div>
             <div class="col-md-3">
-                <s:textfield label="PASSWORD" class="form-control" name="userpassword"
+                <s:textfield label="PASSWORD" class="form-control" name="client.userpassword"
                              value="%{client.userpassword}"/>
             </div>
         </div>

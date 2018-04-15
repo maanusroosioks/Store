@@ -9,56 +9,51 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
-public class ClientAction extends ProductAction implements SessionAware{
-    private String email,firstName,lastName,userpassword;
+public class ClientAction extends ProductAction implements SessionAware {
+    private String email, firstName, lastName, userpassword;
+
     private Client client;
-    private SessionMap<String, String> userSession ;
+    private SessionMap userSession;
 
     public void setSession(Map<String, Object> map) {
-        userSession = (SessionMap) map ;
+        userSession = (SessionMap) map;
 
     }
 
 
-    public String logout(){
+    public String logout() {
         userSession.invalidate();
         return "success";
     }
 
-    public String registerNewClient(){
+    public String registerNewClient() {
         try {
-            client = new Client();
-            client.setFirstName(firstName);
-            client.setLastName(lastName);
-            client.setEmail(email);
-            client.setUserpassword(userpassword);
-            new DatabaseConnection().insertClient(client);
+            DatabaseConnection.insertClient(client);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return SUCCESS;
     }
 
-    public String clientRegistrationPage(){ return SUCCESS;
-    }
-
-    public String clientLoginPage(){
+    public String clientRegistrationPage() {
         return SUCCESS;
     }
 
-    public String clientLogIn(){
-        if(DatabaseConnection.clientLogIn(email,userpassword)) {
+    public String clientLoginPage() {
+        return SUCCESS;
+    }
+
+    public String clientLogIn() {
+        if (DatabaseConnection.clientLogIn(client.getEmail(), client.getUserpassword())) {
             userSession.put("login", "true");
-            userSession.put("email", email);
+            userSession.put("email", client.getEmail());
         }
-        HttpServletRequest request= ServletActionContext.getRequest();
-        HttpSession session=request.getSession();
-        System.out.println(session.getAttribute("email"));
-        String s=(String)session.getAttribute("login");
-        if(s!=null && !s.equals("")){
+        HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession();
+        String s = (String) session.getAttribute("login");
+        if (s != null && !s.equals("")) {
             return "success";
-        }
-        else{
+        } else {
             return "error";
         }
     }
@@ -94,6 +89,14 @@ public class ClientAction extends ProductAction implements SessionAware{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
 }

@@ -69,7 +69,7 @@
         <ul class="sidebar-nav">
             <s:form action="productShoppingTable" id="productTypeSelection">
                 <s:select label="Select product type"
-                          name="productType"
+                          name="productData.productType"
                           headerValue="Select product type"
                           list="%{productTypeList}"
                           onchange="this.form.submit()"
@@ -79,7 +79,9 @@
                     <s:iterator value="productTypeSpecificationsData" var="productTypeSpecificationData">
                         <div class="form-group">
                             <div class="checkbox">
-                                <s:checkboxlist label="%{key}" list="value" name="productTypeSpecificationsData[%{key}]"/>
+                                <s:checkboxlist label="%{key}"
+                                                list="value"
+                                                name="productTypeSpecificationsData"/>
                             </div>
                         </div>
                     </s:iterator>
@@ -92,22 +94,16 @@
         <div class="page-content">
             <div class="container">
                 <table class="table">
-                    <thead>
-                    <tr>
-                        <div class="row">
                             <th>Product ID</th>
                             <th>Product type</th>
                             <th>Product name</th>
                             <th>Product price</th>
                             <th>Product amount</th>
-                        </div>
-                    </tr>
-                    </thead>
                     <tbody>
                     <s:iterator value="productsTableDataList">
                         <tr>
                             <s:url var="findUserUrl" action="productOverview">
-                                <s:param value="productID" name="productID"/>
+                                <s:param value="productID" name="productData.productID"/>
                             </s:url>
                             <td><s:a href="%{findUserUrl}"><s:property value="productID"/></s:a></td>
                             <td><s:property value="productType"/></td>
@@ -115,9 +111,9 @@
                             <td><s:property value="productPrice"/></td>
                             <td><s:property value="productAmount"/></td>
                             <td><s:url var="addToShoppingCart" action="addToShoppingCart">
-                                <s:param value="productName" name="productName"/>
-                                <s:param value="productID" name="productID"/>
-                                <s:param value="productType" name="productType"/>
+                                <s:param value="productName" name="productData.productName"/>
+                                <s:param value="productID" name="productData.productID"/>
+                                <s:param value="productType" name="productData.productType"/>
                             </s:url>
                                 <s:a class="btn btn-danger" href="%{addToShoppingCart}">Add to shopping cart</s:a></td>
                         </tr>

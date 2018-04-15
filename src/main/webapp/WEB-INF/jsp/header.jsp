@@ -49,7 +49,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<s:url action="logout"/>">
+                    <a class="nav-link" href="<s:url action="logOut"/>">
                         Log out
                     </a>
                 </li>

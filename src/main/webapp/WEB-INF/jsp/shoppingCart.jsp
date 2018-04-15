@@ -28,7 +28,7 @@
             <s:iterator value="shoppingCartDataList">
                 <tr>
                     <s:url var="findUserUrl" action="productOverview">
-                        <s:param value="productID" name="productID"/>
+                        <s:param value="productID" name="cartItem.productID"/>
                     </s:url>
                     <td><s:property value="clientName"/></td>
                     <td><s:a href="%{findUserUrl}"><s:property value="productID"/></s:a></td>
@@ -36,7 +36,7 @@
                     <%--<td><s:property value="productPrice"/></td>--%>
                     <td><s:property value="productAmount"/></td>
                     <td><s:url var="removeFromShoppingCart" action="deleteFromShoppingCart">
-                        <s:param value="shoppingCartID" name="shoppingCartID"/>
+                        <s:param value="shoppingCartID" name="cartItem.shoppingCartID"/>
                     </s:url>
                         <s:a class="btn btn-danger" href="%{removeFromShoppingCart}">Remove from Shopping cart</s:a></td>
                 </tr>

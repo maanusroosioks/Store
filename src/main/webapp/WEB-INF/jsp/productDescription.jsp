@@ -20,7 +20,7 @@
             <label>Product type: </label>
         </div>
         <div class="col-md-2">
-            <s:label> <s:property value="productType"/> </s:label>
+            <s:label> <s:property value="productData.productType"/> </s:label>
         </div>
     </div>
 
@@ -29,7 +29,7 @@
             <s:label> <s:property value="productTableColumnNames[0]"/> </s:label>
         </div>
         <div class="col-md-2">
-            <s:label> <s:property value="productSpecificationsData[0]"/> </s:label>
+            <s:property value="productSpecificationsData[0]"/>
         </div>
     </div>
 
@@ -91,11 +91,11 @@
     </div>
 
     <<s:url var="addToShoppingCart" action="addToShoppingCart">
-        <s:param value="productName" name="productName"/>
-        <s:param value="productID" name="productID"/>
-        <s:param value="productType" name="productType"/>
+        <s:param value="productData.productName" name="productData.productName"/>
+        <s:param value="productData.productID" name="productData.productID"/>
+        <s:param value="productData.productType" name="productData.productType"/>
     </s:url>
-        <s:a class="btn btn-danger" href="%{addToShoppingCart}">Add to shopping cart</s:a>
+    <s:a class="btn btn-danger" href="%{addToShoppingCart}">Add to shopping cart</s:a>
 </div>
 </body>
 </html>

@@ -26,12 +26,12 @@
 <s:include value="header.jsp"/>
 <div id="content" class="container">
     <h3>Enter New Values</h3>
-    <s:form action="changevalues" theme="simple">
-        <s:hidden name="productID" value="%{productData.productID}"/>
-        <s:hidden name="productType" value="%{productData.productType}"/>
+    <s:form action="changeValues" theme="simple">
+        <s:hidden name="productData.productID" value="%{productData.productID}"/>
+        <s:hidden name="productData.productType" value="%{productData.productType}"/>
         <div class="row">
             <div class="col-md-2">
-                <s:label>PRODUCT ID: <s:property value="productID"/> </s:label>
+                PRODUCT ID: <s:property value="productData.productID"/>
             </div>
         </div>
         <div class="row">
@@ -45,7 +45,7 @@
 
             </div>
             <div class="col-md-3">
-                <s:textfield label="PRODUCT NAME" name="productName" class="form-control"
+                <s:textfield label="PRODUCT NAME" name="productData.productName" class="form-control"
                              value="%{productData.productName}"/>
             </div>
         </div>
@@ -55,7 +55,7 @@
 
             </div>
             <div class="col-md-3">
-                <s:textfield type="number" label="PRODUCT AMOUNT" name="productAmount" class="form-control"
+                <s:textfield type="number" label="PRODUCT AMOUNT" name="productData.productAmount" class="form-control"
                              value="%{productData.productAmount}"/>
             </div>
         </div>
@@ -65,7 +65,7 @@
 
             </div>
             <div class="col-md-3">
-                <s:textfield type="number" class="form-control" name="productPrice"
+                <s:textfield type="number" class="form-control" name="productData.productPrice"
                              value="%{productData.productPrice}"/>
             </div>
         </div>
@@ -127,12 +127,12 @@
             </div
         </div>
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-12">
                 <s:submit class="btn btn-info button" value="Change values"/>
 
-                <s:url var="deleteProductUrl" action="deleteproductentry">
-                    <s:param value="productID" name="productID"/>
-                    <s:param  value="%{productData.productType}" name="productType"/>
+                <s:url var="deleteProductUrl" action="deleteProductEntry">
+                    <s:param value="%{productData.productID}" name="productData.productID"/>
+                    <s:param  value="%{productData.productType}" name="productData.productType"/>
                 </s:url>
                 <s:a class="btn btn-danger button" href="%{deleteProductUrl}">Delete entry</s:a>
 

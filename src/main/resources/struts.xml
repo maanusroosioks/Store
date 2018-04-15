@@ -19,11 +19,11 @@
             <result>/WEB-INF/jsp/helloWorld.jsp</result>
         </action>
 
-        <action name="valuespage" class="Store.ProductAction" method="fetchProductEditingValues">
+        <action name="valuesPage" class="Store.ProductAction" method="fetchProductEditingValues">
             <result>/WEB-INF/jsp/changeProductValues.jsp</result>
         </action>
 
-        <action name="changevalues" class="Store.ProductAction" method="updateProductValues">
+        <action name="changeValues" class="Store.ProductAction" method="updateProductValues">
             <result>/WEB-INF/jsp/productTable.jsp</result>
         </action>
 
@@ -47,7 +47,7 @@
             <result>/WEB-INF/jsp/shoppingCart.jsp</result>
         </action>
 
-        <action name="newproductentry" class="Store.ProductAction" method="newProductPage">
+        <action name="newProductEntry" class="Store.ProductAction" method="newProductPage">
             <result>/WEB-INF/jsp/insertNewProduct.jsp</result>
         </action>
 
@@ -55,7 +55,7 @@
             <result>/WEB-INF/jsp/newProductTypeSelected.jsp</result>
         </action>
 
-        <action name="insertnewproduct" class="Store.ProductAction" method="insertNewProduct">
+        <action name="insertNewProduct" class="Store.ProductAction" method="insertNewProduct">
             <result>/WEB-INF/jsp/productTable.jsp</result>
         </action>
 
@@ -63,11 +63,11 @@
             <result>/WEB-INF/jsp/createNewProductTable.jsp</result>
         </action>
 
-        <action name="createnewproducttable" class="Store.ProductAction" method="createNewProductTable">
+        <action name="createNewProductTable" class="Store.ProductAction" method="createNewProductTable">
             <result>/WEB-INF/jsp/index.jsp</result>
         </action>
 
-        <action name="deleteproductentry" class="Store.ProductAction" method="deleteProduct">
+        <action name="deleteProductEntry" class="Store.ProductAction" method="deleteProduct">
             <result>/WEB-INF/jsp/productTable.jsp</result>
         </action>
 
@@ -92,7 +92,7 @@
             <result name="error" >/WEB-INF/jsp/loginError.jsp</result>
         </action>
 
-        <action name="logout" class="Store.ClientAction" method="logout">
+        <action name="logOut" class="Store.ClientAction" method="logout">
             <result name="success" >/WEB-INF/jsp/logoutSuccess.jsp</result>
         </action>
 
