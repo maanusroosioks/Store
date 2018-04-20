@@ -15,88 +15,88 @@
             <result>/WEB-INF/jsp/index.jsp</result>
         </action>
 
-        <action name="helloWorld" class="Store.HelloWorldAction">
-            <result>/WEB-INF/jsp/helloWorld.jsp</result>
-        </action>
-
-        <action name="valuesPage" class="Store.ProductAction" method="fetchProductEditingValues">
+        <action name="valuesPage" class="Store.Action.ProductAction" method="fetchProductEditingValues">
             <result>/WEB-INF/jsp/changeProductValues.jsp</result>
         </action>
 
-        <action name="changeValues" class="Store.ProductAction" method="updateProductValues">
+        <action name="changeValues" class="Store.Action.ProductAction" method="updateProductValues">
             <result>/WEB-INF/jsp/productTable.jsp</result>
         </action>
 
-        <action name="fetchProductTable" class="Store.ProductAction" method="productTable">
+        <action name="fetchProductTable" class="Store.Action.ProductAction" method="productTable">
             <result>/WEB-INF/jsp/productTable.jsp</result>
         </action>
 
-        <action name="productShoppingTable" class="Store.ProductAction" method="productShoppingTable">
+        <action name="productShoppingTable" class="Store.Action.ProductAction" method="productShoppingTable">
             <result>/WEB-INF/jsp/productShoppingTable.jsp</result>
         </action>
 
-        <action name="shoppingCartTable" class="Store.ProductAction" method="shoppingCartTable">
-            <result>/WEB-INF/jsp/shoppingCart.jsp</result>
-        </action>
-
-        <action name="addToShoppingCart" class="Store.ProductAction" method="addToShoppingCart">
-            <result>/WEB-INF/jsp/productShoppingTable.jsp</result>
-        </action>
-
-        <action name="deleteFromShoppingCart" class="Store.ProductAction" method="deleteFromShoppingCart">
-            <result>/WEB-INF/jsp/shoppingCart.jsp</result>
-        </action>
-
-        <action name="newProductEntry" class="Store.ProductAction" method="newProductPage">
+        <action name="newProductEntry" class="Store.Action.ProductAction" method="newProductPage">
             <result>/WEB-INF/jsp/insertNewProduct.jsp</result>
         </action>
 
-        <action name="displayNewProductSpecifications" class="Store.ProductAction" method="displayNewProductSpecifications">
+        <action name="displayNewProductSpecifications" class="Store.Action.ProductAction" method="displayNewProductSpecifications">
             <result>/WEB-INF/jsp/newProductTypeSelected.jsp</result>
         </action>
 
-        <action name="insertNewProduct" class="Store.ProductAction" method="insertNewProduct">
+        <action name="insertNewProduct" class="Store.Action.ProductAction" method="insertNewProduct">
             <result>/WEB-INF/jsp/productTable.jsp</result>
         </action>
 
-        <action name="productTypeCreationPage" class="Store.ProductAction" method="productTypeCreationPage">
+        <action name="productTypeCreationPage" class="Store.Action.ProductAction" method="productTypeCreationPage">
             <result>/WEB-INF/jsp/createNewProductTable.jsp</result>
         </action>
 
-        <action name="createNewProductTable" class="Store.ProductAction" method="createNewProductTable">
+        <action name="createNewProductTable" class="Store.Action.ProductAction" method="createNewProductTable">
             <result>/WEB-INF/jsp/index.jsp</result>
         </action>
 
-        <action name="deleteProductEntry" class="Store.ProductAction" method="deleteProduct">
+        <action name="deleteProductEntry" class="Store.Action.ProductAction" method="deleteProduct">
             <result>/WEB-INF/jsp/productTable.jsp</result>
         </action>
 
-        <action name="productOverview" class="Store.ClientAction" method="productSpecificationsPage">
+        <action name="filterShoppingTable" class="Store.Action.ProductAction" method="filterShoppingTable">
+            <result>/WEB-INF/jsp/productShoppingTable.jsp</result>
+        </action>
+
+        <action name="shoppingCartTable" class="Store.Action.ShoppingCartAction" method="shoppingCartTable">
+            <result>/WEB-INF/jsp/shoppingCart.jsp</result>
+        </action>
+
+        <action name="addToShoppingCart" class="Store.Action.ShoppingCartAction" method="addToShoppingCart">
+            <result>/WEB-INF/jsp/productShoppingTable.jsp</result>
+        </action>
+
+        <action name="deleteFromShoppingCart" class="Store.Action.ShoppingCartAction" method="deleteFromShoppingCart">
+            <result>/WEB-INF/jsp/shoppingCart.jsp</result>
+        </action>
+
+        <action name="productOverview" class="Store.Action.ClientAction" method="productSpecificationsPage">
             <result >/WEB-INF/jsp/productDescription.jsp</result>
         </action>
 
-        <action name="clientRegistrationPage" class="Store.ClientAction" method="clientRegistrationPage">
+        <action name="clientRegistrationPage" class="Store.Action.ClientAction" method="clientRegistrationPage">
             <result>/WEB-INF/jsp/registerNewClient.jsp</result>
         </action>
 
-        <action name="registerNewClient" class="Store.ClientAction" method="registerNewClient">
+        <action name="registerNewClient" class="Store.Action.ClientAction" method="registerNewClient">
             <result>/WEB-INF/jsp/productTable.jsp</result>
         </action>
 
-        <action name="loginPage" class="Store.ClientAction" method="clientLoginPage">
+        <action name="loginPage" class="Store.Action.ClientAction" method="clientLoginPage">
             <result >/WEB-INF/jsp/loginPage.jsp</result>
         </action>
 
-        <action name="clientLogIn" class="Store.ClientAction" method="clientLogIn">
+        <action name="clientLogIn" class="Store.Action.ClientAction" method="clientLogIn">
             <result name="success"  >/WEB-INF/jsp/loginSuccessful.jsp</result>
             <result name="error" >/WEB-INF/jsp/loginError.jsp</result>
         </action>
 
-        <action name="logOut" class="Store.ClientAction" method="logout">
+        <action name="logOut" class="Store.Action.ClientAction" method="logout">
             <result name="success" >/WEB-INF/jsp/logoutSuccess.jsp</result>
         </action>
 
-        <action name="profile" class="Store.Profile">
+        <action name="profile" class="Store.Model.Profile">
             <result name="success" >/WEB-INF/jsp/profileSuccess.jsp</result>
             <result name="error" >/WEB-INF/jsp/profileError.jsp</result>
         </action>

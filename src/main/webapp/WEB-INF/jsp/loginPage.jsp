@@ -24,14 +24,10 @@
                              value="%{client.email}"/>
             </div>
         </div>
-
         <div class="row">
-            <div class="col-md-2">
-                <label>PASSWORD: </label>
-
-            </div>
-            <div class="col-md-3">
-                <s:textfield name="client.userpassword" class="form-control"
+            <div class="form-group">
+                <label for="passwordId">PASSWORD: </label>
+                <s:textfield id="passwordId" name="client.userpassword" class="form-control"
                              value="%{client.userpassword}"/>
             </div>
         </div>

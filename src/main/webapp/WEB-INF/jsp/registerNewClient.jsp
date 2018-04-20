@@ -17,44 +17,32 @@
     <h3>Enter New Values</h3>
     <s:form action="registerNewClient" theme="simple">
         <div class="row">
-            <div class="col-md-2">
-                <label>FIRST NAME: </label>
-
-            </div>
-            <div class="col-md-3">
-                <s:textfield  name="client.firstName" class="form-control"
+            <div class="form-group">
+                <label for="firstNameId">FIRST NAME: </label>
+                <s:textfield id="firstNameId" name="client.firstName" class="form-control"
                               value="%{client.firstName}"/>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-2">
-                <label>LAST NAME: </label>
-
-            </div>
-            <div class="col-md-3">
-                <s:textfield label="LAST NAME" name="client.lastName" class="form-control"
+            <div class="form-group">
+                <label for="lastNameId">LAST NAME: </label>
+                <s:textfield id="lastNameId" name="client.lastName" class="form-control"
                              value="%{client.lastName}"/>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
-                <label>EMAIL ADDRESS: </label>
-
-            </div>
-            <div class="col-md-3">
-                <s:textfield label="EMAIL ADDRESS" class="form-control" name="client.email"
+            <div class="form-group">
+                <label for="emailId">EMAIL: </label>
+                <s:textfield id="emailId" class="form-control" name="client.email"
                              value="%{client.email}"/>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-2">
-                <label>PASSWORD: </label>
-
-            </div>
-            <div class="col-md-3">
-                <s:textfield label="PASSWORD" class="form-control" name="client.userpassword"
+            <div class="form-group">
+                <label for="passwordId">PASSWORD: </label>
+                <s:textfield id="passwordId" class="form-control" name="client.userpassword"
                              value="%{client.userpassword}"/>
             </div>
         </div>

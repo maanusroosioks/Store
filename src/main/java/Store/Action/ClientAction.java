@@ -1,6 +1,8 @@
-package Store;
+package Store.Action;
 
-import com.opensymphony.xwork2.ActionContext;
+import Store.Dao.ClientDao;
+import Store.Model.Client;
+import Store.Dao.ProductDao;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
@@ -19,8 +21,6 @@ public class ClientAction extends ProductAction implements SessionAware {
         userSession = (SessionMap) map;
 
     }
-
-
     public String logout() {
         userSession.invalidate();
         return "success";
@@ -28,7 +28,7 @@ public class ClientAction extends ProductAction implements SessionAware {
 
     public String registerNewClient() {
         try {
-            DatabaseConnection.insertClient(client);
+            ClientDao.insertClient(client);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,7 +44,7 @@ public class ClientAction extends ProductAction implements SessionAware {
     }
 
     public String clientLogIn() {
-        if (DatabaseConnection.clientLogIn(client.getEmail(), client.getUserpassword())) {
+        if (ClientDao.clientLogIn(client.getEmail(), client.getUserpassword())) {
             userSession.put("login", "true");
             userSession.put("email", client.getEmail());
         }
@@ -57,6 +57,7 @@ public class ClientAction extends ProductAction implements SessionAware {
             return "error";
         }
     }
+
 
 
     public void setUserpassword(String userpassword) {

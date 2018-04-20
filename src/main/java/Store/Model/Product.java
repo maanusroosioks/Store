@@ -1,4 +1,4 @@
-package Store;
+package Store.Model;
 
 public class Product {
     private int productID, productAmount;

@@ -74,31 +74,38 @@
                           list="%{productTypeList}"
                           onchange="this.form.submit()"
                           emptyOption="true"
+
                 />
-            <div>
-                    <s:iterator value="productTypeSpecificationsData" var="productTypeSpecificationData">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <s:checkboxlist label="%{key}"
-                                                list="value"
-                                                name="productTypeSpecificationsData"/>
-                            </div>
-                        </div>
-                    </s:iterator>
-                <s:submit class="btn btn-info"/>
             </s:form>
+
+            <s:form action="filterShoppingTable">
+            <div>
+                <s:iterator value="productTypeSpecificationsData" var="productTypeSpecificationData">
+                    <s:set var="" value="checkedProductTypeSpecificationsData.put(%{key}, null)" />
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <s:checkboxlist label="%{key}"
+                                            list="%{productTypeSpecificationsData[key]}"
+                                            name="checkedProductTypeSpecificationsData[%{key}]"/>
+
+
+                        </div>
+                    </div>
+                </s:iterator>
+                <s:submit class="btn btn-info"/>
             </div>
+            </s:form>
         </ul>
     </div>
     <div id="page-content-wrapper">
         <div class="page-content">
             <div class="container">
                 <table class="table">
-                            <th>Product ID</th>
-                            <th>Product type</th>
-                            <th>Product name</th>
-                            <th>Product price</th>
-                            <th>Product amount</th>
+                    <th>Product ID</th>
+                    <th>Product type</th>
+                    <th>Product name</th>
+                    <th>Product price</th>
+                    <th>Product amount</th>
                     <tbody>
                     <s:iterator value="productsTableDataList">
                         <tr>
@@ -114,6 +121,7 @@
                                 <s:param value="productName" name="productData.productName"/>
                                 <s:param value="productID" name="productData.productID"/>
                                 <s:param value="productType" name="productData.productType"/>
+                                <s:param value="productPrice" name="productData.productPrice"/>
                             </s:url>
                                 <s:a class="btn btn-danger" href="%{addToShoppingCart}">Add to shopping cart</s:a></td>
                         </tr>

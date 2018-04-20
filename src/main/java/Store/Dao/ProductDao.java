@@ -1,5 +1,8 @@
-package Store;
+package Store.Dao;
 
+import Store.Model.Client;
+import Store.Model.Product;
+import Store.Model.ShoppingCartItem;
 import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class DatabaseConnection {
+public class ProductDao {
     private static final String url = "jdbc:mysql://localhost:3306/new_schema";
     private static final String username = "root";
     private static final String password = "maanus";
@@ -389,37 +392,6 @@ public class DatabaseConnection {
         }
     }
 
-    public static void addToShoppingTable(Product productData) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        try {
-            HttpServletRequest request = ServletActionContext.getRequest();
-            HttpSession session = request.getSession();
-            String email = (String) session.getAttribute("email");
-            conn = DriverManager.getConnection(url, username, password);
-            pstmt = conn.prepareStatement("INSERT INTO shoppingcart (email,productName, productID, productAmount) VALUES (?,?,?,?)");
-            pstmt.setString(1, email);
-            pstmt.setString(2, productData.getProductName());
-            pstmt.setInt(3, productData.getProductID());
-            pstmt.setInt(4, 1);
-            pstmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                pstmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
     public static List<String> fetchProductTypes() {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -492,7 +464,7 @@ public class DatabaseConnection {
             rs = pstmt.executeQuery();
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnCount = rsmd.getColumnCount();
-            for (int i = 1; i <= columnCount; i++) {
+            for (int i = 3; i <= columnCount; i++) {
                 String name = rsmd.getColumnName(i);
                 productTableColumnNames.add(name);
             }
@@ -579,154 +551,6 @@ public class DatabaseConnection {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                pstmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static List<ShoppingCartItem> fetchShoppingCartData() {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        List<ShoppingCartItem> shoppingCartDataList;
-        ResultSet rs = null;
-        ShoppingCartItem cartItem;
-        try {
-            conn = DriverManager.getConnection(url, username, password);
-            HttpServletRequest request = ServletActionContext.getRequest();
-            HttpSession session = request.getSession();
-            String email = (String) session.getAttribute("email");
-            pstmt = conn.prepareStatement("SELECT shoppingcart.productID,  " +
-                    "shoppingcart.productName ,shoppingcart.productAmount, clientinfo.firstName," +
-                    "clientinfo.lastName, shoppingCartID FROM shoppingcart INNER JOIN " +
-                    "clientinfo ON shoppingcart.email=clientinfo.email WHERE shoppingcart.email=?");
-            pstmt.setString(1, email);
-            rs = pstmt.executeQuery();
-            shoppingCartDataList = new ArrayList<>();
-            if (rs != null) {
-                while (rs.next()) {
-                    cartItem = new ShoppingCartItem();
-                    cartItem.setClientName(rs.getString("firstName") + " "
-                            + rs.getString("lastName"));
-                    cartItem.setProductID(rs.getInt("productID"));
-                    cartItem.setProductName(rs.getString("productName"));
-                    cartItem.setProductAmount(rs.getInt("productAmount"));
-                    cartItem.setShoppingCartID(rs.getInt("shoppingCartID"));
-//                    productData.setProductPrice(rs.getFloat("productPrice"));
-                    shoppingCartDataList.add(cartItem);
-                }
-                return shoppingCartDataList;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            try {
-                rs.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                pstmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return shoppingCartDataList;
-    }
-
-    public static void deleteFromShoppingCart(ShoppingCartItem cartItem) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        try {
-            conn = DriverManager.getConnection(url, username, password);
-            HttpServletRequest request = ServletActionContext.getRequest();
-            HttpSession session = request.getSession();
-            String email = (String) session.getAttribute("email");
-            pstmt = conn.prepareStatement("DELETE FROM shoppingcart WHERE shoppingCartID=? AND email=?");
-            pstmt.setInt(1, cartItem.getShoppingCartID());
-            pstmt.setString(2, email);
-            pstmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                pstmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static void insertClient(Client client) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        try {
-            conn = DriverManager.getConnection(url, username, password);
-            pstmt = conn.prepareStatement("INSERT INTO clientinfo (firstName, lastName," +
-                    "email,userpassword) VALUES (?,?,?,?)");
-            pstmt.setString(1, client.getFirstName());
-            pstmt.setString(2, client.getLastName());
-            pstmt.setString(3, client.getEmail());
-            pstmt.setString(4, client.getUserpassword());
-            pstmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                pstmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    public static boolean clientLogIn(String email, String userpassword) {
-        boolean status;
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            conn = DriverManager.getConnection(url, username, password);
-            pstmt = conn.prepareStatement("SELECT email, userpassword FROM clientinfo " +
-                    "WHERE email=? AND userpassword=?");
-            pstmt.setString(1, email);
-            pstmt.setString(2, userpassword);
-            rs = pstmt.executeQuery();
-            status = rs.next();
-            return status;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            try {
-                rs.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
             try {
                 pstmt.close();
             } catch (SQLException e) {

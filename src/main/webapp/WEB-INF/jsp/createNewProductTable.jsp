@@ -26,9 +26,10 @@
 
             label.setAttribute("style", "font-weight:normal");
 
-            var column = document.getElementById("asd");
+            var column = document.getElementById("addColumnButton");
 
             column.appendChild(label);
+            column.appendChild(breakLine)
             column.appendChild(element);
             column.appendChild(breakLine)
         }
@@ -38,7 +39,7 @@
 <s:include value="header.jsp"/>
 <div class="container">
     <s:form action="createNewProductTable" theme="simple">
-        <div class="row">
+        <div class="form-group">
             <div class="col-md-2">
                 <label>Product type: </label>
             </div>
@@ -47,27 +48,17 @@
                              value="%{productData.productType}"/>
             </div>
         </div>
-        <div  id="asd">
-            <br>
+        <div  id="addColumnButton">
         </div>
-        <%--<s:iterator begin="0" end="8" status="row">--%>
-        <%--<div class="row">--%>
-        <%--<div class="col-md-2">--%>
-        <%--Column <s:property value="%{#row.index}"/>--%>
-        <%--</div>--%>
-        <%--<div class="col-md-2">--%>
-        <%--<s:textfield name="productTableColumnNames[%{#row.index}]"--%>
-        <%--class="form-control"/>--%>
-        <%--</div>--%>
-        <%--</div>--%>
-        <%--</s:iterator>--%>
         <div class="row">
             <div class="col-md-3">
                 <s:submit class="btn btn-info"/>
             </div>
         </div>
     </s:form>
-    <button id="button" value="Add" onclick="add();">ADD COLUMN</button>
+    <button id="button" class="btn btn-info" value="Add" onclick="add();">ADD COLUMN</button>
 </div>
 </body>
 </html>
+
+

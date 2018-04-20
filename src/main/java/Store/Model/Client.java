@@ -1,4 +1,4 @@
-package Store;
+package Store.Model;
 
 public class Client {
     private String firstName,lastName,email,userpassword;

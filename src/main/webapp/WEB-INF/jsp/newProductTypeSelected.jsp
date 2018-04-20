@@ -34,63 +34,16 @@
                              value="%{productData.productPrice}"/>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-2">
-                <s:label> <s:property value="productTableColumnNames[2]"/> </s:label>
+        <s:iterator value="productTableColumnNames" status="row">
+            <div class="row">
+                <div class="col-md-2">
+                    <s:property/>
+                </div>
+                <div class="col-md-2">
+                    <s:textfield name="productSpecValueList[%{#row.index}]"  class="form-control"/>
+                </div>
             </div>
-            <div class="col-md-2">
-                <s:textfield name="value1" value="%{value1}" class="form-control"/>
-            </div>
-            <div class="col-md-2">
-                <s:label> <s:property value="productTableColumnNames[3]"/> </s:label>
-            </div>
-            <div class="col-md-2">
-                <s:textfield name="value2" value="%{value2}" class="form-control"/>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-2">
-                <s:label> <s:property value="productTableColumnNames[4]"/> </s:label>
-            </div>
-            <div class="col-md-2">
-                <s:textfield name="value3" value="%{value3}" class="form-control"/>
-            </div>
-            <div class="col-md-2">
-                <s:label> <s:property value="productTableColumnNames[5]"/> </s:label>
-            </div>
-            <div class="col-md-2">
-                <s:textfield name="value4" value="%{value4}" class="form-control"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2">
-                <s:label> <s:property value="productTableColumnNames[6]"/> </s:label>
-            </div>
-            <div class="col-md-2">
-                <s:textfield name="value5" value="%{value5}" class="form-control"/>
-            </div>
-            <div class="col-md-2">
-                <s:label> <s:property value="productTableColumnNames[7]"/> </s:label>
-            </div>
-            <div class="col-md-2">
-                <s:textfield name="value6" value="%{value6}" class="form-control"/>
-            </div
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <s:label> <s:property value="productTableColumnNames[8]"/> </s:label>
-            </div>
-            <div class="col-md-2">
-                <s:textfield name="value7" value="%{value7}" class="form-control"/>
-            </div>
-            <div class="col-md-3">
-                <s:label> <s:property value="productTableColumnNames[9]"/> </s:label>
-            </div>
-            <div class="col-md-2">
-                <s:textfield name="value8" value="%{value8}" class="form-control"/>
-            </div
-        </div>
+        </s:iterator>
         <div class="row">
             <div class="col-md-3">
                 <s:submit class="btn btn-info"/>

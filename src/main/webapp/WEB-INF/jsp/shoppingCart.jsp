@@ -6,39 +6,41 @@
 <%@taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-    <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.css" rel="stylesheet" type="text/css"/>
     <title>Shopping cart</title>
 </head>
 <body>
 <s:include value="header.jsp"/>
 <div id="content" class="container">
-    <div class="table-responsive" >
+    <div class="table-responsive">
         <table class="table">
             <thead>
             <tr>
-                <div class="row">
-                    <th>Client name</th>
-                    <th>Product ID</th>
-                    <th>Product name</th>
-                    <th>Product amount</th>
-                </div>
+                <th>Client name</th>
+                <th>Product ID</th>
+                <th>Product name</th>
+                <th>Product price</th>
+                <th>Product amount</th>
             </tr>
             </thead>
             <tbody>
             <s:iterator value="shoppingCartDataList">
                 <tr>
                     <s:url var="findUserUrl" action="productOverview">
-                        <s:param value="productID" name="cartItem.productID"/>
+                        <s:param value="productID" name="productData.productID"/>
+                        <s:param value="productName" name="productData.productName"/>
+                        <s:param value="productType" name="productData.productType"/>
                     </s:url>
                     <td><s:property value="clientName"/></td>
                     <td><s:a href="%{findUserUrl}"><s:property value="productID"/></s:a></td>
                     <td><s:property value="productName"/></td>
-                    <%--<td><s:property value="productPrice"/></td>--%>
+                    <td><s:property value="productPrice"/></td>
                     <td><s:property value="productAmount"/></td>
                     <td><s:url var="removeFromShoppingCart" action="deleteFromShoppingCart">
                         <s:param value="shoppingCartID" name="cartItem.shoppingCartID"/>
                     </s:url>
-                        <s:a class="btn btn-danger" href="%{removeFromShoppingCart}">Remove from Shopping cart</s:a></td>
+                        <s:a class="btn btn-danger"
+                             href="%{removeFromShoppingCart}">Remove from Shopping cart</s:a></td>
                 </tr>
             </s:iterator>
             </tbody>
