@@ -1,6 +1,8 @@
 <!DOCTYPE html PUBLIC
 "-//W3C//DTD XHTML 1.1 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="s" uri="/struts-tags" %>
 <style>
     #wrapper {
         padding-left: 250px;
@@ -55,11 +57,18 @@
 
     }
 </style>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
     <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#productShoppingTable-1').on('change', function () {
+                console.log($('#productShoppingTable-1').val());
+            });
+        });
+    </script>
     <title>Products table</title>
 </head>
 <body>
@@ -84,7 +93,7 @@
                     <s:set var="" value="checkedProductTypeSpecificationsData.put(%{key}, null)" />
                     <div class="form-group">
                         <div class="checkbox">
-                            <s:checkboxlist label="%{key}"
+                            <s:checkboxlist id="productShoppingTable" label="%{key}"
                                             list="%{productTypeSpecificationsData[key]}"
                                             name="checkedProductTypeSpecificationsData[%{key}]"/>
 
@@ -92,7 +101,7 @@
                         </div>
                     </div>
                 </s:iterator>
-                <s:submit class="btn btn-info"/>
+                <s:submit id="submit" class="btn btn-info"/>
             </div>
             </s:form>
         </ul>
