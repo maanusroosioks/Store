@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCartDao extends ProductDao{
-    public static List<ShoppingCartItem> fetchShoppingCartData() {
+    public static ArrayList<ShoppingCartItem> fetchShoppingCartData() {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        List<ShoppingCartItem> shoppingCartDataList;
+        ArrayList<ShoppingCartItem> shoppingCartDataList;
         ResultSet rs = null;
         ShoppingCartItem cartItem;
         try {
@@ -94,6 +94,33 @@ public class ShoppingCartDao extends ProductDao{
         }
     }
 
+    public static void emptyShoppingCart() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            conn = DriverManager.getConnection(getUrl(), getUsername(), getPassword());
+            HttpServletRequest request = ServletActionContext.getRequest();
+            HttpSession session = request.getSession();
+            String email = (String) session.getAttribute("email");
+            pstmt = conn.prepareStatement("DELETE FROM shoppingcart WHERE email=?");
+            pstmt.setString(1, email);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static void addToShoppingCart(Product productData) {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -125,6 +152,6 @@ public class ShoppingCartDao extends ProductDao{
                 e.printStackTrace();
             }
         }
-
     }
+
 }

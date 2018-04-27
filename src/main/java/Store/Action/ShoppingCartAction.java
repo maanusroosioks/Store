@@ -1,25 +1,20 @@
 package Store.Action;
 
+import Store.Dao.OrderDao;
 import Store.Dao.ProductDao;
 import Store.Dao.ShoppingCartDao;
 import Store.Model.Product;
 import Store.Model.ShoppingCartItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCartAction extends ProductAction {
-    private List<ShoppingCartItem> shoppingCartDataList;
+    private ArrayList<ShoppingCartItem> shoppingCartDataList;
     private ShoppingCartItem cartItem;
     private int shoppingCartID;
 
-    public ShoppingCartItem getCartItem() {
 
-        return cartItem;
-    }
-
-    public void setCartItem(ShoppingCartItem cartItem) {
-        this.cartItem = cartItem;
-    }
 
     public String addToShoppingCart() {
         try {
@@ -29,7 +24,6 @@ public class ShoppingCartAction extends ProductAction {
             e.printStackTrace();
         }
         return SUCCESS;
-
     }
 
     public String shoppingCartTable() {
@@ -53,7 +47,25 @@ public class ShoppingCartAction extends ProductAction {
         return SUCCESS;
     }
 
-    public void setShoppingCartDataList(List<ShoppingCartItem> shoppingCartDataList) {
+    public String emptyShoppingCart(){
+        try {
+            ShoppingCartDao.emptyShoppingCart();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+
+    public ShoppingCartItem getCartItem() {
+        return cartItem;
+    }
+
+    public void setCartItem(ShoppingCartItem cartItem) {
+        this.cartItem = cartItem;
+    }
+
+    public void setShoppingCartDataList(ArrayList<ShoppingCartItem> shoppingCartDataList) {
         this.shoppingCartDataList = shoppingCartDataList;
     }
 

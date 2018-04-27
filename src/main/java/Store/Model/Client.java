@@ -1,7 +1,7 @@
 package Store.Model;
 
 public class Client {
-    private String firstName,lastName,email,userpassword;
+    private String firstName,lastName,email,userPassword;
     private int clientID;
 
     public void setClientID(int clientID) {
@@ -20,9 +20,6 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public void setUserpassword(String userpassword) {
-        this.userpassword = userpassword;
-    }
 
     public int getClientID() {
         return clientID;
@@ -40,7 +37,11 @@ public class Client {
         return lastName;
     }
 
-    public String getUserpassword() {
-        return userpassword;
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 }

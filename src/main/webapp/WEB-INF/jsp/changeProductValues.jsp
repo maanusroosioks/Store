@@ -14,7 +14,6 @@
 <html>
 <head>
     <title>Enter new values</title>
-    <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
         .button {
             margin-right: 20px;

@@ -9,38 +9,31 @@
 <%@taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-    <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <title>Product Description</title>
 </head>
 <body>
 <s:include value="header.jsp"/>
 <div class="container">
-    <div class="row">
-        <div class="col-md-2">
-            <label>Product type: </label>
-        </div>
-        <div class="col-md-2">
-            <s:label> <s:property value="productData.productType"/> </s:label>
-        </div>
-    </div>
+    <table class="table">
 
-    <s:iterator value="productTableColumnNames" status="row">
-        <div class="row">
-            <div class="col-md-2">
-                <s:property/>
-            </div>
-            <div class="col-md-2">
-                <s:property value="%{productSpecificationsData[#row.index]}"/>
-            </div>
-        </div>
-    </s:iterator>
-
+        <td><label>Product type: </label></td>
+        <td><s:property value="productData.productType"/></td>
+        <s:iterator value="productTableColumnNames" status="row">
+            <tr>
+                <td><s:property/></td>
+                <td><s:property value="%{productSpecificationsData[#row.index]}"/></td>
+            </tr>
+        </s:iterator>
+    </table>
     <s:url var="addToShoppingCart" action="addToShoppingCart">
         <s:param value="productData.productName" name="productData.productName"/>
         <s:param value="productData.productID" name="productData.productID"/>
         <s:param value="productData.productType" name="productData.productType"/>
     </s:url>
+    <s:url var="productTableUrl" action="productShoppingTable"/>
     <s:a class="btn btn-danger" href="%{addToShoppingCart}">Add to shopping cart</s:a>
+    <s:a class="btn btn-info button" href="%{productTableUrl}">Back</s:a>
 </div>
+
 </body>
 </html>

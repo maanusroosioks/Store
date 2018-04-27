@@ -55,10 +55,6 @@
             <result>/WEB-INF/jsp/productTable.jsp</result>
         </action>
 
-        <action name="filterShoppingTable" class="Store.Action.ProductAction" method="filterShoppingTable">
-            <result>/WEB-INF/jsp/productShoppingTable.jsp</result>
-        </action>
-
         <action name="shoppingCartTable" class="Store.Action.ShoppingCartAction" method="shoppingCartTable">
             <result>/WEB-INF/jsp/shoppingCart.jsp</result>
         </action>
@@ -68,6 +64,10 @@
         </action>
 
         <action name="deleteFromShoppingCart" class="Store.Action.ShoppingCartAction" method="deleteFromShoppingCart">
+            <result>/WEB-INF/jsp/shoppingCart.jsp</result>
+        </action>
+
+        <action name="emptyShoppingCart" class="Store.Action.ShoppingCartAction" method="emptyShoppingCart">
             <result>/WEB-INF/jsp/shoppingCart.jsp</result>
         </action>
 
@@ -96,7 +96,19 @@
             <result name="success" >/WEB-INF/jsp/logoutSuccess.jsp</result>
         </action>
 
-        <action name="profile" class="Store.Model.Profile">
+        <action name="updateClientInfo" class="Store.Action.ClientAction" method="updateClientInfo">
+            <result name="success" >/WEB-INF/jsp/index.jsp</result>
+        </action>
+
+        <action name="generateOrder" class="Store.Action.OrderAction" method="generateOrder">
+            <result>/WEB-INF/jsp/shoppingCart.jsp</result>
+        </action>
+
+        <action name="ordersPage" class="Store.Action.OrderAction" method="ordersPage">
+            <result>/WEB-INF/jsp/ordersPage.jsp</result>
+        </action>
+
+        <action name="profilePage" class="Store.Action.ClientAction" method="profilePage">
             <result name="success" >/WEB-INF/jsp/profileSuccess.jsp</result>
             <result name="error" >/WEB-INF/jsp/profileError.jsp</result>
         </action>

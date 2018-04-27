@@ -6,14 +6,11 @@
 
 <html>
 <head>
-    <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <title>Index</title>
     <s:head/>
 </head>
 <body id="page-home">
 <s:include value="header.jsp"/>
-
-</div>
 </body>
 </html>
 	

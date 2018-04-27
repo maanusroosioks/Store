@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 public class ClientAction extends ProductAction implements SessionAware {
-    private String email, firstName, lastName, userpassword;
+    private String email, firstName, lastName, userPassword;
 
     private Client client;
     private SessionMap userSession;
@@ -21,6 +21,7 @@ public class ClientAction extends ProductAction implements SessionAware {
         userSession = (SessionMap) map;
 
     }
+
     public String logout() {
         userSession.invalidate();
         return "success";
@@ -44,13 +45,12 @@ public class ClientAction extends ProductAction implements SessionAware {
     }
 
     public String clientLogIn() {
-        if (ClientDao.clientLogIn(client.getEmail(), client.getUserpassword())) {
-            userSession.put("login", "true");
+        if (ClientDao.clientLogIn(client.getEmail(), client.getUserPassword())) {
             userSession.put("email", client.getEmail());
         }
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpSession session = request.getSession();
-        String s = (String) session.getAttribute("login");
+        String s = (String) session.getAttribute("email");
         if (s != null && !s.equals("")) {
             return "success";
         } else {
@@ -58,14 +58,34 @@ public class ClientAction extends ProductAction implements SessionAware {
         }
     }
 
-
-
-    public void setUserpassword(String userpassword) {
-        this.userpassword = userpassword;
+    public String profilePage() {
+        HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession();
+        String s = (String) session.getAttribute("email");
+        client=ClientDao.fetchClientProfile();
+        if (s != null && !s.equals("")) {
+            return "success";
+        } else {
+            return "error";
+        }
     }
 
-    public String getUserpassword() {
-        return userpassword;
+    public String updateClientInfo(){
+        try {
+            ClientDao.updateClientInfo(client);
+            userSession.put("email",client.getEmail());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
     public void setFirstName(String firstName) {

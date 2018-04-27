@@ -9,7 +9,6 @@
 <html>
 <head>
     <title>Enter values for the new product</title>
-    <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <s:include value="header.jsp"/>
@@ -42,7 +41,7 @@
         <div class="row">
             <div class="form-group">
                 <label for="passwordId">PASSWORD: </label>
-                <s:textfield id="passwordId" class="form-control" name="client.userpassword"
+                <s:textfield id="passwordId" class="form-control" name="client.userPassword"
                              value="%{client.userpassword}"/>
             </div>
         </div>

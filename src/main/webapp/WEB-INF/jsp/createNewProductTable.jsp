@@ -10,7 +10,6 @@
 <html>
 <head>
     <title>Create new product type</title>
-    <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <script>
         var index = 1;
 

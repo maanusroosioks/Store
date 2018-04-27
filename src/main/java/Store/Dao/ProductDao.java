@@ -8,10 +8,7 @@ import org.apache.struts2.ServletActionContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class ProductDao {
@@ -69,10 +66,10 @@ public class ProductDao {
         }
     }
 
-    public static List<Product> fetchProductTableData() {
+    public static ArrayList<Product> fetchProductTableData() {
         Connection conn = null;
         Statement stmt = null;
-        List<Product> productsTableDataList;
+        ArrayList<Product> productsTableDataList;
         ResultSet rs = null;
         Product productData;
         try {
@@ -116,23 +113,58 @@ public class ProductDao {
         return productsTableDataList;
     }
 
-    public static List<Product> fetchProductTableData(String productType) {
+    public static ArrayList<Product> fetchProductTableData(String productType,
+                                                           ArrayList<ArrayList<String>> checkedProductTypeSpecificationsData,
+                                                           ArrayList<String> productTableColumnNames) {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        List<Product> productsTableDataList;
+        ArrayList<Product> productsTableDataList;
         ResultSet rs = null;
         Product productData;
         try {
             conn = DriverManager.getConnection(url, username, password);
             StringBuilder query = new StringBuilder();
-            query.append("SELECT productID,  productName,  productAmount,  productPrice, productType FROM products");
+            query.append("SELECT p.productID,  p.productName,  p.productAmount,  p.productPrice, p.productType ");
+
+            for (String columnName : productTableColumnNames) {
+                query.append(", spec.").append(columnName);
+            }
+            query.append(" FROM products p INNER JOIN ").append(productType).append(" spec ON p.productID=spec.productID");
             if (productType.length() > 0) {
-                query.append(" WHERE productType=?");
+                query.append(" WHERE p.productType=? ");
+            }
+
+            if (productTableColumnNames.size() == checkedProductTypeSpecificationsData.size()) {
+                for (int i = 0; i < productTableColumnNames.size(); i++) {
+                    if (checkedProductTypeSpecificationsData.get(i).size() != 0) {
+                        query.append("AND").append(" (spec.").append(productTableColumnNames.get(i));
+                    }
+                    for (int j = 0; j < checkedProductTypeSpecificationsData.get(i).size(); j++) {
+                        if (checkedProductTypeSpecificationsData.get(i).size() != 0 && j == 0) {
+                            query.append("=?");
+                        }
+                        if (checkedProductTypeSpecificationsData.get(i).size() != 0 && j != 0) {
+                            query.append(" OR").append(" spec.").append(productTableColumnNames.get(i)).append("=?");
+                        }
+                    }
+                    if (checkedProductTypeSpecificationsData.get(i).size() != 0) {
+                        query.append(") ");
+                    }
+                }
             }
             String builtQuery = query.toString();
             pstmt = conn.prepareStatement(builtQuery);
             if (productType.length() > 0) {
                 pstmt.setString(1, productType);
+            }
+            int pstmtIndex = 2;
+            if (productTableColumnNames.size() == checkedProductTypeSpecificationsData.size()) {
+                for (int i = 0; i < productTableColumnNames.size(); i++) {
+                    for (int j = 0; j < checkedProductTypeSpecificationsData.get(i).size(); j++) {
+                        pstmt.setString(pstmtIndex, checkedProductTypeSpecificationsData.get(i).get(j));
+                        pstmtIndex++;
+                    }
+                }
             }
             rs = pstmt.executeQuery();
             productsTableDataList = new ArrayList<Product>();
@@ -171,7 +203,8 @@ public class ProductDao {
         return productsTableDataList;
     }
 
-    public static Map<String, ArrayList<String>> fetchProductSpecValuesForFiltering(List<String> productColumnNames, String productType) {
+    public static Map<String, ArrayList<String>> fetchProductSpecValuesForFiltering(ArrayList<String> productColumnNames,
+                                                                                    String productType) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -182,7 +215,7 @@ public class ProductDao {
             pstmt = conn.prepareStatement("SELECT * FROM " + productType + " WHERE productType=?");
             pstmt.setString(1, productType);
             rs = pstmt.executeQuery();
-            productTypeSpecifcationsData = new HashMap<>();
+            productTypeSpecifcationsData = new LinkedHashMap<>();
             while (rs.next()) {
                 for (String productColumnName : productColumnNames) {
                     temporaryProductValueList = new ArrayList<>();
@@ -287,7 +320,7 @@ public class ProductDao {
         return queryID;
     }
 
-    public static void insertProductSpecifications(Product productData, List<String> productTableColumnNames,
+    public static void insertProductSpecifications(Product productData, ArrayList<String> productTableColumnNames,
                                                    Map<String, Object> productTableSpecValues) {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -327,7 +360,7 @@ public class ProductDao {
         }
     }
 
-    public void updateProductSpecifications(Product productData, List<String> productTableColumnNames,
+    public void updateProductSpecifications(Product productData, ArrayList<String> productTableColumnNames,
                                             Map<String, Object> productTableSpecValues) {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -392,11 +425,11 @@ public class ProductDao {
         }
     }
 
-    public static List<String> fetchProductTypes() {
+    public static ArrayList<String> fetchProductTypes() {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        List<String> productTypeList = new ArrayList<>();
+        ArrayList<String> productTypeList = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(url, username, password);
             pstmt = conn.prepareStatement("SELECT productType FROM producttypes");
@@ -452,11 +485,11 @@ public class ProductDao {
         }
     }
 
-    public static List<String> fetchProductTableColumns(String tableName) {
+    public static ArrayList<String> fetchProductTableColumns(String tableName) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        List<String> productTableColumnNames = new ArrayList<>();
+        ArrayList<String> productTableColumnNames = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(url, username, password);
             pstmt = conn.prepareStatement("SELECT * FROM " + tableName);
@@ -491,11 +524,11 @@ public class ProductDao {
         }
     }
 
-    public static List<String> fetchProductSpecifications(Product productData, List<String> productColumnNames) {
+    public static ArrayList<String> fetchProductSpecifications(Product productData, ArrayList<String> productColumnNames) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        List<String> productSpecifcationsData = new ArrayList<>();
+        ArrayList<String> productSpecifcationsData = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(url, username, password);
             pstmt = conn.prepareStatement("SELECT * FROM " + productData.getProductType() + " WHERE productID=?");

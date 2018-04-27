@@ -6,7 +6,6 @@
 <%@taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-    <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.css" rel="stylesheet" type="text/css"/>
     <title>Shopping cart</title>
 </head>
 <body>
@@ -45,6 +44,12 @@
             </s:iterator>
             </tbody>
         </table>
+        <s:url var="purchaseProducts" action="generateOrder">
+        </s:url>
+        <s:a class="btn btn-danger" href="%{purchaseProducts}">Purchase products</s:a>
+        <s:url var="emptyShoppingCart" action="emptyShoppingCart">
+        </s:url>
+        <s:a class="btn btn-danger" href="%{emptyShoppingCart}">Remove all items</s:a>
     </div>
 </div>
 </body>

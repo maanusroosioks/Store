@@ -9,7 +9,6 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-    <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <title>Login page</title>
 </head>
 <body id="page-home">
@@ -27,8 +26,8 @@
         <div class="row">
             <div class="form-group">
                 <label for="passwordId">PASSWORD: </label>
-                <s:textfield id="passwordId" name="client.userpassword" class="form-control"
-                             value="%{client.userpassword}"/>
+                <s:textfield id="passwordId" name="client.userPassword" class="form-control"
+                             value="%{client.userPassword}"/>
             </div>
         </div>
         <s:submit value="login" class="btn btn-info"/>

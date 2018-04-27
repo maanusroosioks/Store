@@ -1,4 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -29,7 +30,7 @@
                     Shopping cart
                 </a>
             </li>
-            <s:if test="%{#session.login ==null}">
+            <s:if test="%{#session.email ==null}">
                 <li class="nav-item">
                     <a class="nav-link" href="<s:url action="clientRegistrationPage"/>">
                         Register user
@@ -41,15 +42,20 @@
                     </a>
                 </li>
             </s:if>
-            <s:if test="%{#session.login =='true'}">
+            <s:if test="%{#session.email !=null}">
                 <li class="nav-item">
-                    <a class="nav-link" href="<s:url action="profile"/>">
+                    <a class="nav-link" href="<s:url action="profilePage"/>">
                         Profile
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<s:url action="logOut"/>">
                         Log out
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<s:url action="ordersPage"/>">
+                        Orders
                     </a>
                 </li>
             </s:if>

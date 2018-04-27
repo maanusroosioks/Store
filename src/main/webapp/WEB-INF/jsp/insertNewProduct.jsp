@@ -9,7 +9,6 @@
 <html>
 <head>
     <title>Enter values for the new product</title>
-    <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <s:include value="header.jsp"/>

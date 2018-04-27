@@ -3,72 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="s" uri="/struts-tags" %>
-<style>
-    #wrapper {
-        padding-left: 250px;
-        transition: all 0.4s ease 0s;
-    }
-
-    #sidebar-wrapper {
-        margin-left: -250px;
-        left: 250px;
-        width: 250px;
-        background: #CCC;
-        position: fixed;
-        height: 100%;
-        overflow-y: auto;
-        z-index: 1000;
-        transition: all 0.4s ease 0s;
-    }
-
-    #page-content-wrapper {
-        width: 100%;
-    }
-
-    .sidebar-nav {
-        position: absolute;
-        top: 0;
-        width: 250px;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    @media (max-width: 767px) {
-
-        #wrapper {
-            padding-left: 0;
-        }
-
-        #sidebar-wrapper {
-            left: 0;
-        }
-
-        #wrapper.active {
-            position: relative;
-            left: 250px;
-        }
-
-        #wrapper.active #sidebar-wrapper {
-            left: 250px;
-            width: 250px;
-            transition: all 0.4s ease 0s;
-        }
-
-    }
-</style>
 <html>
 <head>
-    <link href="webjars/bootstrap/4.0.0-beta/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
     <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-
-        $(document).ready(function () {
-            $('#productShoppingTable-1').on('change', function () {
-                console.log($('#productShoppingTable-1').val());
-            });
-        });
-    </script>
     <title>Products table</title>
 </head>
 <body>
@@ -85,24 +23,19 @@
                           emptyOption="true"
 
                 />
-            </s:form>
-
-            <s:form action="filterShoppingTable">
-            <div>
-                <s:iterator value="productTypeSpecificationsData" var="productTypeSpecificationData">
-                    <s:set var="" value="checkedProductTypeSpecificationsData.put(%{key}, null)" />
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <s:checkboxlist id="productShoppingTable" label="%{key}"
-                                            list="%{productTypeSpecificationsData[key]}"
-                                            name="checkedProductTypeSpecificationsData[%{key}]"/>
-
-
+                <div>
+                    <s:iterator value="productTypeSpecificationsData" status="row">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <s:checkboxlist id="productShoppingTable" label="%{key}"
+                                                list="%{productTypeSpecificationsData[key]}"
+                                                name="checkedProductTypeSpecificationsData[%{#row.index}]"
+                                                value="%{checkedProductTypeSpecificationsData[#row.index]}"
+                                                onchange="this.form.submit()"/>
+                            </div>
                         </div>
-                    </div>
-                </s:iterator>
-                <s:submit id="submit" class="btn btn-info"/>
-            </div>
+                    </s:iterator>
+                </div>
             </s:form>
         </ul>
     </div>

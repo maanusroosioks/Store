@@ -13,23 +13,32 @@ import java.util.*;
 
 public class ProductAction extends ActionSupport {
     public static final Logger LOG = LogManager.getLogger(ProductAction.class);
-    List<Product> productsTableDataList;
+    ArrayList<Product> productsTableDataList;
     private ProductDao productObject;
     private Product productData;
     private int productID, productAmount;
     private String productName, productType;
     private float productPrice;
-    private List<String> productTypeList = new ArrayList<>();
-    private List<String> productTableColumnNames = new ArrayList<>();
-    private List<String> productSpecValueList = new ArrayList<>();
+    private ArrayList<String> productTypeList = new ArrayList<>();
+    private ArrayList<String> productTableColumnNames = new ArrayList<>();
+    private ArrayList<String> productSpecValueList = new ArrayList<>();
     private Map<String, Object> productTableSpecValues;
-    private List<String> productSpecificationsData = new ArrayList<>();
-    private Map<String, ArrayList<String>> productTypeSpecificationsData = new HashMap<>();
-    private Map<String, ArrayList<String>> checkedProductTypeSpecificationsData = new HashMap<>();
+    private ArrayList<String> productSpecificationsData = new ArrayList<>();
+    private Map<String, ArrayList<String>> productTypeSpecificationsData = new LinkedHashMap<>();
+    private ArrayList<ArrayList<String>> checkedProductTypeSpecificationsData = new ArrayList<>();
 
     public String productTable() {
         try {
-            productsTableDataList = ProductDao.fetchProductTableData();
+            productTypeList = ProductDao.fetchProductTypes();
+            if (productData == null || productData.getProductType().isEmpty()) {
+                productsTableDataList = ProductDao.fetchProductTableData();
+            } else {
+                productTableColumnNames = ProductDao.fetchProductTableColumns(productData.getProductType());
+                productTypeSpecificationsData = ProductDao.fetchProductSpecValuesForFiltering
+                        (productTableColumnNames, productData.getProductType());
+                productsTableDataList = ProductDao.fetchProductTableData(productData.getProductType(),
+                        checkedProductTypeSpecificationsData,productTableColumnNames);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,10 +51,11 @@ public class ProductAction extends ActionSupport {
             if (productData == null || productData.getProductType().isEmpty()) {
                 productsTableDataList = ProductDao.fetchProductTableData();
             } else {
-                productsTableDataList = ProductDao.fetchProductTableData(productData.getProductType());
                 productTableColumnNames = ProductDao.fetchProductTableColumns(productData.getProductType());
                 productTypeSpecificationsData = ProductDao.fetchProductSpecValuesForFiltering
                         (productTableColumnNames, productData.getProductType());
+                productsTableDataList = ProductDao.fetchProductTableData(productData.getProductType(),
+                        checkedProductTypeSpecificationsData,productTableColumnNames);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,15 +158,13 @@ public class ProductAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String filterShoppingTable(){
-        try {
-            System.out.println(checkedProductTypeSpecificationsData);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return SUCCESS;
+    public ArrayList<ArrayList<String>> getCheckedProductTypeSpecificationsData() {
+        return checkedProductTypeSpecificationsData;
     }
 
+    public void setCheckedProductTypeSpecificationsData(ArrayList<ArrayList<String>> checkedProductTypeSpecificationsData) {
+        this.checkedProductTypeSpecificationsData = checkedProductTypeSpecificationsData;
+    }
 
     public Map<String, ArrayList<String>> getProductTypeSpecificationsData() {
         return productTypeSpecificationsData;
@@ -170,7 +178,7 @@ public class ProductAction extends ActionSupport {
         return productSpecValueList;
     }
 
-    public void setProductSpecValueList(List<String> productSpecValueList) {
+    public void setProductSpecValueList(ArrayList<String> productSpecValueList) {
         this.productSpecValueList = productSpecValueList;
     }
 
@@ -178,7 +186,7 @@ public class ProductAction extends ActionSupport {
         return productSpecificationsData;
     }
 
-    public void setProductSpecificationsData(List<String> productSpecificationsData) {
+    public void setProductSpecificationsData(ArrayList<String> productSpecificationsData) {
         this.productSpecificationsData = productSpecificationsData;
     }
 
@@ -194,7 +202,7 @@ public class ProductAction extends ActionSupport {
         return productTableColumnNames;
     }
 
-    public void setProductTableColumnNames(List<String> productTableColumnNames) {
+    public void setProductTableColumnNames(ArrayList<String> productTableColumnNames) {
         this.productTableColumnNames = productTableColumnNames;
     }
 
@@ -207,7 +215,7 @@ public class ProductAction extends ActionSupport {
         return productType;
     }
 
-    public void setProductTypeList(List<String> productTypeList) {
+    public void setProductTypeList(ArrayList<String> productTypeList) {
         this.productTypeList = productTypeList;
     }
 
@@ -216,7 +224,7 @@ public class ProductAction extends ActionSupport {
     }
 
 
-    public void setProductsTableDataList(List<Product> productsTableDataList) {
+    public void setProductsTableDataList(ArrayList<Product> productsTableDataList) {
         this.productsTableDataList = productsTableDataList;
     }
 
