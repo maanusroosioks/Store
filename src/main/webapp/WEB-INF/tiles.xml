@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+    <definition name = "baseLayout" template="/WEB-INF/jsp/baseLayout/baseLayout.jsp">
+        <put-attribute name = "title"  value = "Template"/>
+        <put-attribute name = "header" value = "/WEB-INF/jsp/baseLayout/header.jsp"/>
+        <put-attribute name = "sidebar"   value = "/WEB-INF/jsp/baseLayout/sidebar.jsp"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/baseLayout/body.jsp"/>
+        <put-attribute name = "footer"   value = "/WEB-INF/jsp/baseLayout/footer.jsp"/>
+    </definition>
+
+    <definition name = "valuesPage" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Change product values"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/changeProductValues.jsp"/>
+    </definition>
+
+    <definition name = "index" extends = "baseLayout">
+        <put-attribute name = "title"  value = ""/>
+        <put-attribute name = "header" value = "/WEB-INF/jsp/baseLayout/header.jsp"/>
+        <put-attribute name = "sidebar"   value = "/WEB-INF/jsp/baseLayout/sidebar.jsp"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/baseLayout/body.jsp"/>
+        <put-attribute name = "footer"   value = "/WEB-INF/jsp/baseLayout/footer.jsp"/>
+    </definition>
+
+    <definition name = "changeValues" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Product table"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/productTable.jsp"/>
+    </definition>
+
+    <definition name = "fetchProductTable" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Product table"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/productTable.jsp"/>
+        <put-attribute name = "sidebar"   value = "/WEB-INF/jsp/productTableSidebar.jsp"/>
+    </definition>
+
+    <definition name = "productShoppingTable" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Product shopping table"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/productShoppingTable.jsp"/>
+        <put-attribute name = "sidebar"   value = "/WEB-INF/jsp/productTableSidebar.jsp"/>
+    </definition>
+
+    <definition name = "newProductEntry" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Enter new product values"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/insertNewProduct.jsp"/>
+    </definition>
+
+    <definition name = "displayNewProductSpecifications" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Enter new product values"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/newProductTypeSelected.jsp"/>
+    </definition>
+
+    <definition name = "insertNewProduct" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Product table"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/productTable.jsp"/>
+    </definition>
+
+    <definition name = "productTypeCreationPage" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Insert new product type"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/createNewProductTable.jsp"/>
+    </definition>
+
+    <definition name = "createNewProductTable" extends = "baseLayout">
+        <put-attribute name = "title"  value = ""/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/index.jsp"/>
+    </definition>
+
+    <definition name = "deleteProductEntry" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Product table"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/productTable.jsp"/>
+    </definition>
+
+    <definition name = "shoppingCartTable" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Shopping cart"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/shoppingCart.jsp"/>
+    </definition>
+
+    <definition name = "addToShoppingCart" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Shopping cart"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/shoppingCart.jsp"/>
+    </definition>
+
+    <definition name = "deleteFromShoppingCart" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Shopping cart"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/shoppingCart.jsp"/>
+    </definition>
+
+    <definition name = "emptyShoppingCart" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Shopping cart"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/shoppingCart.jsp"/>
+    </definition>
+
+    <definition name = "productOverview" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Product description"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/productDescription.jsp"/>
+    </definition>
+
+    <definition name = "clientRegistrationPage" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Register client"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/registerNewClient.jsp"/>
+    </definition>
+
+    <definition name = "registerNewClient" extends = "baseLayout">
+        <put-attribute name = "title"  value = ""/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/index.jsp"/>
+    </definition>
+
+    <definition name = "loginPage" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Log in"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/loginPage.jsp"/>
+    </definition>
+
+    <definition name = "logInSuccess" extends = "baseLayout">
+        <put-attribute name = "title"  value = ""/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/loginSuccessful.jsp"/>
+    </definition>
+
+    <definition name = "logInError" extends = "baseLayout">
+        <put-attribute name = "title"  value = ""/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/loginError.jsp"/>
+    </definition>
+
+    <definition name = "logOut" extends = "baseLayout">
+        <put-attribute name = "title"  value = ""/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/logoutSuccess.jsp"/>
+    </definition>
+
+    <definition name = "updateClientInfo" extends = "baseLayout">
+        <put-attribute name = "title"  value = ""/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/index.jsp"/>
+    </definition>
+
+    <definition name = "generateOrder" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Orders"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/ordersPage.jsp"/>
+    </definition>
+
+    <definition name = "ordersPage" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Orders"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/ordersPage.jsp"/>
+    </definition>
+
+    <definition name = "profileSuccess" extends = "baseLayout">
+        <put-attribute name = "title"  value = "Profile page"/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/profileSuccess.jsp"/>
+    </definition>
+
+    <definition name = "profileError" extends = "baseLayout">
+        <put-attribute name = "title"  value = ""/>
+        <put-attribute name = "body"   value = "/WEB-INF/jsp/profileError.jsp"/>
+    </definition>
+
+
+
+</tiles-definitions>

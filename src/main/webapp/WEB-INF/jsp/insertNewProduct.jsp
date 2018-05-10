@@ -1,21 +1,11 @@
-<!DOCTYPE html PUBLIC
-        "-//W3C//DTD XHTML 1.1 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<%@page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html;charset=UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags" %>
 
-
-<html>
-<head>
-    <title>Enter values for the new product</title>
-</head>
-<body>
-<s:include value="header.jsp"/>
 <div id="content" class="container">
-    <h3>Enter New Values</h3>
+    <h3><s:property value="getText('global.enterValues')"/></h3>
+
     <s:form action="displayNewProductSpecifications" id="productTypeSelection">
-        <s:select label="Select product type"
+        <s:select label="%{getText('global.selectProductType')}"
                   name="productData.productType"
                   headerValue="Select product type"
                   list="%{productTypeList}"
@@ -24,5 +14,3 @@
         />
     </s:form>
 </div>
-</body>
-</html>

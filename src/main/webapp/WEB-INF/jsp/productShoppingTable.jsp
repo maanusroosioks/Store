@@ -1,53 +1,20 @@
-<!DOCTYPE html PUBLIC
-"-//W3C//DTD XHTML 1.1 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="s" uri="/struts-tags" %>
-<html>
-<head>
-    <link rel="stylesheet" href="../../css/style.css" type="text/css">
-    <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
-    <title>Products table</title>
-</head>
-<body>
-<s:include value="header.jsp"/>
-<div id="wrapper">
-    <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <s:form action="productShoppingTable" id="productTypeSelection">
-                <s:select label="Select product type"
-                          name="productData.productType"
-                          headerValue="Select product type"
-                          list="%{productTypeList}"
-                          onchange="this.form.submit()"
-                          emptyOption="true"
 
-                />
-                <div>
-                    <s:iterator value="productTypeSpecificationsData" status="row">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <s:checkboxlist id="productShoppingTable" label="%{key}"
-                                                list="%{productTypeSpecificationsData[key]}"
-                                                name="checkedProductTypeSpecificationsData[%{#row.index}]"
-                                                value="%{checkedProductTypeSpecificationsData[#row.index]}"
-                                                onchange="this.form.submit()"/>
-                            </div>
-                        </div>
-                    </s:iterator>
-                </div>
-            </s:form>
-        </ul>
-    </div>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@taglib prefix="s" uri="/struts-tags" %>
+
+<link rel="stylesheet" href="../../css/style.css" type="text/css">
+
+
+<div id="wrapper" class="asd">
     <div id="page-content-wrapper">
         <div class="page-content">
             <div class="container">
                 <table class="table">
-                    <th>Product ID</th>
-                    <th>Product type</th>
-                    <th>Product name</th>
-                    <th>Product price</th>
-                    <th>Product amount</th>
+                    <th><s:property value="getText('global.productID')"/></th>
+                    <th><s:property value="getText('global.productType')"/></th>
+                    <th><s:property value="getText('global.productName')"/></th>
+                    <th><s:property value="getText('global.productPrice')"/></th>
+                    <th><s:property value="getText('global.productAmount')"/></th>
                     <tbody>
                     <s:iterator value="productsTableDataList">
                         <tr>
@@ -65,7 +32,7 @@
                                 <s:param value="productType" name="productData.productType"/>
                                 <s:param value="productPrice" name="productData.productPrice"/>
                             </s:url>
-                                <s:a class="btn btn-danger" href="%{addToShoppingCart}">Add to shopping cart</s:a></td>
+                                <s:a class="btn btn-danger" href="%{addToShoppingCart}"><s:property value="getText('global.addToShoppingCart')"/></s:a></td>
                         </tr>
                     </s:iterator>
                     </tbody>
@@ -74,5 +41,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>

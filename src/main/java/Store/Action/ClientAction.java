@@ -24,7 +24,7 @@ public class ClientAction extends ProductAction implements SessionAware {
 
     public String logout() {
         userSession.invalidate();
-        return "success";
+        return "logOut";
     }
 
     public String registerNewClient() {
@@ -33,15 +33,15 @@ public class ClientAction extends ProductAction implements SessionAware {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "registerNewClient";
     }
 
     public String clientRegistrationPage() {
-        return SUCCESS;
+        return "clientRegistrationPage";
     }
 
     public String clientLoginPage() {
-        return SUCCESS;
+        return "clientLoginPage";
     }
 
     public String clientLogIn() {
@@ -77,7 +77,7 @@ public class ClientAction extends ProductAction implements SessionAware {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "updateClientInfo";
     }
 
     public String getUserPassword() {

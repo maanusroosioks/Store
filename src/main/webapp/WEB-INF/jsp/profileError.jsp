@@ -1,5 +1,8 @@
-<jsp:include page="index.jsp"></jsp:include>
-Please login first to see profile
+<%@taglib prefix="s" uri="/struts-tags" %>
+
+<jsp:include page="index.jsp"/>
+<s:property value="getText('global.profileErrorMessage')"/>
+
 
 
 

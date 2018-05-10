@@ -27,6 +27,9 @@ public class ProductAction extends ActionSupport {
     private Map<String, ArrayList<String>> productTypeSpecificationsData = new LinkedHashMap<>();
     private ArrayList<ArrayList<String>> checkedProductTypeSpecificationsData = new ArrayList<>();
 
+
+    public String baseLayout(){return "indexPage";}
+
     public String productTable() {
         try {
             productTypeList = ProductDao.fetchProductTypes();
@@ -42,7 +45,7 @@ public class ProductAction extends ActionSupport {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "fetchProductTable";
     }
 
     public String productShoppingTable() {
@@ -60,7 +63,7 @@ public class ProductAction extends ActionSupport {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "productShoppingTable";
     }
 
 
@@ -72,7 +75,7 @@ public class ProductAction extends ActionSupport {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "valuesPage";
     }
 
     public String updateProductValues() {
@@ -88,12 +91,12 @@ public class ProductAction extends ActionSupport {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "changeValues";
     }
 
     public String newProductPage() {
         productTypeList = ProductDao.fetchProductTypes();
-        return SUCCESS;
+        return "newProductEntry";
     }
 
     public String displayNewProductSpecifications() {
@@ -103,7 +106,7 @@ public class ProductAction extends ActionSupport {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "displayNewProductSpecifications";
     }
 
     public String productSpecificationsPage() {
@@ -114,7 +117,7 @@ public class ProductAction extends ActionSupport {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "productOverview";
     }
 
     public String insertNewProduct() {
@@ -131,11 +134,11 @@ public class ProductAction extends ActionSupport {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "insertNewProduct";
     }
 
     public String productTypeCreationPage() {
-        return SUCCESS;
+        return "productTypeCreationPage";
     }
 
     public String createNewProductTable() {
@@ -145,7 +148,7 @@ public class ProductAction extends ActionSupport {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "createNewProductTable";
     }
 
     public String deleteProduct() {
@@ -155,7 +158,7 @@ public class ProductAction extends ActionSupport {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "deleteProductEntry";
     }
 
     public ArrayList<ArrayList<String>> getCheckedProductTypeSpecificationsData() {

@@ -1,6 +1,6 @@
 
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
-<jsp:include page="index.jsp"></jsp:include>
+<jsp:include page="index.jsp"/>
 <hr/>
-<br/>Welcome, <s:property value="client.email"/>
+<br/><s:property value="getText('global.welcome')"/>, <s:property value="client.email"/>

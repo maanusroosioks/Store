@@ -14,14 +14,29 @@
         <struts2.version>2.5.14.1</struts2.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-jsp -->
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-tiles-plugin</artifactId>
+            <version>2.5.16</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.ajaxtags/ajaxtags -->
+        <dependency>
+            <groupId>org.ajaxtags</groupId>
+            <artifactId>ajaxtags</artifactId>
+            <version>1.1.5</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
-            <version>3.2.1</version>
+            <version>3.3.1</version>
         </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <dependency>

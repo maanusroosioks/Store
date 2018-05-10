@@ -1,63 +1,50 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Maanus
-  Date: 05-Apr-18
-  Time: 11:35
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<html>
-<head>
-    <title>Create new product type</title>
-    <script>
-        var index = 1;
 
-        function add() {
-            var element = document.createElement("input");
-            var label = document.createElement("Label");
-            var breakLine=document.createElement("br")
-            label.innerHTML = "Column name";
-            element.setAttribute("type", "text");
-            element.setAttribute("value", "");
-            element.setAttribute("name", "productTableColumnNames[" + index + "]");
-            index++;
+<script>
+    var index = 1;
 
-            label.setAttribute("style", "font-weight:normal");
+    function add() {
+        var element = document.createElement("input");
+        var label = document.createElement("Label");
+        var breakLine = document.createElement("br");
+        label.innerHTML = "Column name";
+        element.setAttribute("type", "text");
+        element.setAttribute("value", "");
+        element.setAttribute("name", "productTableColumnNames[" + index + "]");
+        index++;
 
-            var column = document.getElementById("addColumnButton");
+        label.setAttribute("style", "font-weight:normal");
 
-            column.appendChild(label);
-            column.appendChild(breakLine)
-            column.appendChild(element);
-            column.appendChild(breakLine)
-        }
-    </script>
-</head>
-<body>
-<s:include value="header.jsp"/>
+        var column = document.getElementById("addColumnButton");
+
+        column.appendChild(label);
+        column.appendChild(breakLine);
+        column.appendChild(element);
+        column.appendChild(breakLine);
+    }
+</script>
+
 <div class="container">
     <s:form action="createNewProductTable" theme="simple">
-        <div class="form-group">
-            <div class="col-md-2">
-                <label>Product type: </label>
-            </div>
-            <div class="col-md-2">
-                <s:textfield label="PRODUCT TYPE" name="productData.productType" class="form-control"
-                             value="%{productData.productType}"/>
-            </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            <label><s:property value="getText('global.productType')"/> </label>
         </div>
-        <div  id="addColumnButton">
+        <div class="col-md-2">
+            <s:textfield label="PRODUCT TYPE" name="productData.productType" class="form-control"
+                         value="%{productData.productType}"/>
         </div>
-        <div class="row">
-            <div class="col-md-3">
-                <s:submit class="btn btn-info"/>
-            </div>
+    </div>
+    <div id="addColumnButton">
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <s:submit class="btn btn-info" value="%{getText('global.submit')}"/>
+            </s:form>
         </div>
-    </s:form>
-    <button id="button" class="btn btn-info" value="Add" onclick="add();">ADD COLUMN</button>
+    </div>
+        <button id="button" class="btn btn-info" value="Add" onclick="add();"><s:property
+                value="getText('global.addColumn')"/></button>
 </div>
-</body>
-</html>
-
 

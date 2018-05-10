@@ -1,25 +1,17 @@
-<!DOCTYPE html PUBLIC
-"-//W3C//DTD XHTML 1.1 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags" %>
-<html>
-<head>
-    <title>Shopping cart</title>
-</head>
-<body>
-<s:include value="header.jsp"/>
+
+
 <div id="content" class="container">
     <div class="table-responsive">
         <table class="table">
             <thead>
             <tr>
-                <th>Client name</th>
-                <th>Product ID</th>
-                <th>Product name</th>
-                <th>Product price</th>
-                <th>Product amount</th>
+                <th><s:property value="getText('global.clientName')"/></th>
+                <th><s:property value="getText('global.productID')"/></th>
+                <th><s:property value="getText('global.productName')"/></th>
+                <th><s:property value="getText('global.productPrice')"/></th>
+                <th><s:property value="getText('global.productPrice')"/></th>
             </tr>
             </thead>
             <tbody>
@@ -39,18 +31,16 @@
                         <s:param value="shoppingCartID" name="cartItem.shoppingCartID"/>
                     </s:url>
                         <s:a class="btn btn-danger"
-                             href="%{removeFromShoppingCart}">Remove from Shopping cart</s:a></td>
+                             href="%{removeFromShoppingCart}"><s:property value="getText('global.removeFromShoppingCart')"/></s:a></td>
                 </tr>
             </s:iterator>
             </tbody>
         </table>
         <s:url var="purchaseProducts" action="generateOrder">
         </s:url>
-        <s:a class="btn btn-danger" href="%{purchaseProducts}">Purchase products</s:a>
+        <s:a class="btn btn-danger" href="%{purchaseProducts}"><s:property value="getText('global.purchaseProducts')"/></s:a>
         <s:url var="emptyShoppingCart" action="emptyShoppingCart">
         </s:url>
-        <s:a class="btn btn-danger" href="%{emptyShoppingCart}">Remove all items</s:a>
+        <s:a class="btn btn-danger" href="%{emptyShoppingCart}"><s:property value="getText('global.removeAllItems')"/></s:a>
     </div>
 </div>
-</body>
-</html>

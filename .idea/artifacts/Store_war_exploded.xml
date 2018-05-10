@@ -7,7 +7,30 @@
           <element id="module-output" name="Store" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="Maven: org.webjars:jquery:3.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.struts:struts2-tiles-plugin:2.5.16" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-api:3.0.7" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.6" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-core:3.0.7" />
+          <element id="library" level="project" name="Maven: commons-digester:commons-digester:2.0" />
+          <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.6" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-servlet:3.0.7" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-request-api:1.0.6" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-request-jsp:1.0.6" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-request-servlet:1.0.6" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-jsp:3.0.7" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-template:3.0.7" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-autotag-core-runtime:1.2" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-freemarker:3.0.7" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-request-freemarker:1.0.6" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-ognl:3.0.7" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-el:3.0.7" />
+          <element id="library" level="project" name="Maven: org.ajaxtags:ajaxtags:1.1.5" />
+          <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.1" />
+          <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.7.0" />
+          <element id="library" level="project" name="Maven: net.htmlparser:jericho-html:1.5-dev1" />
+          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.0.6" />
+          <element id="library" level="project" name="Maven: taglibs:standard:1.0.6" />
+          <element id="library" level="project" name="Maven: org.webjars:jquery:3.3.1" />
           <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
           <element id="library" level="project" name="Maven: org.webjars:bootstrap:4.0.0-beta" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.46" />

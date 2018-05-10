@@ -21,7 +21,7 @@ public class OrderAction extends ProductAction {
 
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "ordersPage";
     }
 
     public String generateOrder(){
@@ -31,7 +31,7 @@ public class OrderAction extends ProductAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "generateOrder";
     }
 
     public ArrayList<ArrayList<Order>> getOrderListByBillID() {

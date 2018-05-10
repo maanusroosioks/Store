@@ -1,3 +1,5 @@
-<jsp:include page="index.jsp"></jsp:include>
+<%@ taglib uri="/struts-tags" prefix="s" %>
+
+<jsp:include page="index.jsp"/>
 <hr/>
-You are successfully logged out!
+<s:property value="getText('global.logOutMessage')"/>

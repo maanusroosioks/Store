@@ -1,3 +1,3 @@
-<jsp:include page="loginPage.jsp"></jsp:include>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
-Sorry username or password error!
+<s:property value="getText('global.loginErrorMessage')"/>

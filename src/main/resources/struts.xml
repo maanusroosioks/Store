@@ -4,113 +4,123 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-
+    <constant name="struts.custom.i18n.resources" value="global"/>
     <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
     <constant name="struts.devMode" value="true"/>
     <package name="myPackage" extends="struts-default">
+        <result-types>
+            <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+        </result-types>
+        <default-action-ref name="indexPage"/>
 
-        <default-action-ref name="index"/>
-
-        <action name="index" class="Store.IndexAction">
+        <action name="index" class="Store.Action.WelcomeAction">
             <result>/WEB-INF/jsp/index.jsp</result>
         </action>
 
-        <action name="valuesPage" class="Store.Action.ProductAction" method="fetchProductEditingValues">
-            <result>/WEB-INF/jsp/changeProductValues.jsp</result>
+        <action name="indexPage" method="baseLayout" class="Store.Action.ProductAction">
+            <result name="indexPage" type="tiles">index</result>
         </action>
 
-        <action name="changeValues" class="Store.Action.ProductAction" method="updateProductValues">
-            <result>/WEB-INF/jsp/productTable.jsp</result>
+        <action name = "language" class = "Store.Action.LanguageAction">
+            <result name = "success" type="tiles">index</result>
         </action>
 
-        <action name="fetchProductTable" class="Store.Action.ProductAction" method="productTable">
-            <result>/WEB-INF/jsp/productTable.jsp</result>
+        <action name="valuesPage" method="fetchProductEditingValues" class="Store.Action.ProductAction">
+            <result name="valuesPage" type="tiles">valuesPage</result>
         </action>
 
-        <action name="productShoppingTable" class="Store.Action.ProductAction" method="productShoppingTable">
-            <result>/WEB-INF/jsp/productShoppingTable.jsp</result>
+        <action name="changeValues" method="updateProductValues" class="Store.Action.ProductAction">
+            <result name="changeValues" type="tiles">changeValues</result>
         </action>
 
-        <action name="newProductEntry" class="Store.Action.ProductAction" method="newProductPage">
-            <result>/WEB-INF/jsp/insertNewProduct.jsp</result>
+        <action name="fetchProductTable" method="productTable" class="Store.Action.ProductAction">
+            <result name="fetchProductTable" type="tiles">fetchProductTable</result>
         </action>
 
-        <action name="displayNewProductSpecifications" class="Store.Action.ProductAction" method="displayNewProductSpecifications">
-            <result>/WEB-INF/jsp/newProductTypeSelected.jsp</result>
+        <action name="productShoppingTable" method="productShoppingTable" class="Store.Action.ProductAction">
+            <result name="productShoppingTable" type="tiles">productShoppingTable</result>
         </action>
 
-        <action name="insertNewProduct" class="Store.Action.ProductAction" method="insertNewProduct">
-            <result>/WEB-INF/jsp/productTable.jsp</result>
+        <action name="newProductEntry" method="newProductPage" class="Store.Action.ProductAction">
+            <result name="newProductEntry" type="tiles">newProductEntry</result>
         </action>
 
-        <action name="productTypeCreationPage" class="Store.Action.ProductAction" method="productTypeCreationPage">
-            <result>/WEB-INF/jsp/createNewProductTable.jsp</result>
+        <action name="displayNewProductSpecifications" method="displayNewProductSpecifications" class="Store.Action.ProductAction">
+            <result name="displayNewProductSpecifications" type="tiles">displayNewProductSpecifications</result>
         </action>
 
-        <action name="createNewProductTable" class="Store.Action.ProductAction" method="createNewProductTable">
-            <result>/WEB-INF/jsp/index.jsp</result>
+        <action name="insertNewProduct" method="insertNewProduct" class="Store.Action.ProductAction">
+            <result name="insertNewProduct" type="tiles">insertNewProduct</result>
         </action>
 
-        <action name="deleteProductEntry" class="Store.Action.ProductAction" method="deleteProduct">
-            <result>/WEB-INF/jsp/productTable.jsp</result>
+        <action name="productTypeCreationPage" method="productTypeCreationPage" class="Store.Action.ProductAction">
+            <result name="productTypeCreationPage" type="tiles">productTypeCreationPage</result>
+        </action>
+
+        <action name="createNewProductTable" method="createNewProductTable" class="Store.Action.ProductAction">
+            <result name="createNewProductTable" type="tiles">createNewProductTable</result>
+        </action>
+
+        <action name="deleteProductEntry" method="deleteProduct" class="Store.Action.ProductAction">
+            <result name="deleteProductEntry" type="tiles">deleteProductEntry</result>
         </action>
 
         <action name="shoppingCartTable" class="Store.Action.ShoppingCartAction" method="shoppingCartTable">
-            <result>/WEB-INF/jsp/shoppingCart.jsp</result>
+            <result name="shoppingCartTable" type="tiles">shoppingCartTable</result>
         </action>
 
         <action name="addToShoppingCart" class="Store.Action.ShoppingCartAction" method="addToShoppingCart">
-            <result>/WEB-INF/jsp/productShoppingTable.jsp</result>
+            <result name="addToShoppingCart" type="tiles">addToShoppingCart</result>
         </action>
 
         <action name="deleteFromShoppingCart" class="Store.Action.ShoppingCartAction" method="deleteFromShoppingCart">
-            <result>/WEB-INF/jsp/shoppingCart.jsp</result>
+            <result name="deleteFromShoppingCart" type="tiles">deleteFromShoppingCart</result>
         </action>
 
         <action name="emptyShoppingCart" class="Store.Action.ShoppingCartAction" method="emptyShoppingCart">
-            <result>/WEB-INF/jsp/shoppingCart.jsp</result>
+            <result name="emptyShoppingCart" type="tiles">emptyShoppingCart</result>
         </action>
 
         <action name="productOverview" class="Store.Action.ClientAction" method="productSpecificationsPage">
-            <result >/WEB-INF/jsp/productDescription.jsp</result>
+            <result name="productOverview" type="tiles">productOverview</result>
         </action>
 
         <action name="clientRegistrationPage" class="Store.Action.ClientAction" method="clientRegistrationPage">
-            <result>/WEB-INF/jsp/registerNewClient.jsp</result>
+            <result name="clientRegistrationPage" type="tiles">clientRegistrationPage</result>
         </action>
 
         <action name="registerNewClient" class="Store.Action.ClientAction" method="registerNewClient">
-            <result>/WEB-INF/jsp/productTable.jsp</result>
+            <result name="registerNewClient" type="tiles">registerNewClient</result>
         </action>
 
-        <action name="loginPage" class="Store.Action.ClientAction" method="clientLoginPage">
-            <result >/WEB-INF/jsp/loginPage.jsp</result>
+        <action name="clientLoginPage" class="Store.Action.ClientAction" method="clientLoginPage">
+            <result name="clientLoginPage" type="tiles">loginPage</result>
         </action>
 
         <action name="clientLogIn" class="Store.Action.ClientAction" method="clientLogIn">
-            <result name="success"  >/WEB-INF/jsp/loginSuccessful.jsp</result>
-            <result name="error" >/WEB-INF/jsp/loginError.jsp</result>
+            <result name="success" type="tiles">logInSuccess</result>
+            <result name="error" type="tiles">logInError</result>
         </action>
 
         <action name="logOut" class="Store.Action.ClientAction" method="logout">
-            <result name="success" >/WEB-INF/jsp/logoutSuccess.jsp</result>
+            <result name="logOut" type="tiles">logOut</result>
         </action>
 
         <action name="updateClientInfo" class="Store.Action.ClientAction" method="updateClientInfo">
-            <result name="success" >/WEB-INF/jsp/index.jsp</result>
+            <result name="updateClientInfo" type="tiles">updateClientInfo</result>
         </action>
 
         <action name="generateOrder" class="Store.Action.OrderAction" method="generateOrder">
-            <result>/WEB-INF/jsp/shoppingCart.jsp</result>
+            <result name="generateOrder" type="tiles">generateOrder</result>
         </action>
 
         <action name="ordersPage" class="Store.Action.OrderAction" method="ordersPage">
-            <result>/WEB-INF/jsp/ordersPage.jsp</result>
+            <result name="ordersPage" type="tiles">ordersPage</result>
         </action>
 
         <action name="profilePage" class="Store.Action.ClientAction" method="profilePage">
-            <result name="success" >/WEB-INF/jsp/profileSuccess.jsp</result>
-            <result name="error" >/WEB-INF/jsp/profileError.jsp</result>
+            <result name="success" type="tiles">profileSuccess</result>
+            <result name="error" type="tiles">profileError</result>
         </action>
     </package>
 

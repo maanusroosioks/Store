@@ -23,7 +23,7 @@ public class ShoppingCartAction extends ProductAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "addToShoppingCart";
     }
 
     public String shoppingCartTable() {
@@ -34,7 +34,7 @@ public class ShoppingCartAction extends ProductAction {
 //            LOG.error("asdasd);
 //            e.printStackTrace();
         }
-        return SUCCESS;
+        return "shoppingCartTable";
     }
 
     public String deleteFromShoppingCart() {
@@ -44,7 +44,7 @@ public class ShoppingCartAction extends ProductAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "deleteFromShoppingCart";
     }
 
     public String emptyShoppingCart(){
@@ -53,7 +53,7 @@ public class ShoppingCartAction extends ProductAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return SUCCESS;
+        return "emptyShoppingCart";
     }
 
 
